@@ -1,0 +1,36 @@
+---
+import Article from '../layouts/Article.astro';
+import { site, publisher, disclosure } from '../site.config';
+import { publishedCompanies } from '../lib/feed';
+const n = publishedCompanies().length;
+---
+<Article
+  title="About Bolivia Unpacked"
+  description="What Bolivia Unpacked is, who publishes it, how pages are written and checked, and how to contact the editors."
+  path="/about/"
+  crumbs={[{ name: 'Home', path: '/' }, { name: 'About', path: '/about/' }]}
+  published={site.launchDate}
+  reviewed={site.launchDate}
+  sources={[]}
+  rail={false}
+  kicker="About"
+  lede={site.positioning}
+>
+  <h2>What this site is</h2>
+  <p>{site.name} is a small, independent reference site about planning travel in Bolivia. It covers the regions, the seasons, altitude, transport and routes, and lists verified tour operators for the country.</p>
+  <h2>Who publishes it</h2>
+  <p>It is published by <a href={publisher.url}>Tourground</a>, a directory and booking platform for tour operators and travel agencies. {site.editorLine} Read the full <a href="/disclosure/">publisher disclosure</a>.</p>
+  <h2>How pages are written</h2>
+  <ul>
+    <li>Guide and question pages are written in plain English, as reference, not marketing.</li>
+    <li>Every factual page lists its sources and shows when it was published and last reviewed.</li>
+    <li>Only pages an editor has marked as reviewed are published. Pages without sources are never published.</li>
+    <li>We do not publish statistics, reviews, quotes or counts we cannot source. Counts of companies are computed from the directory feed.</li>
+  </ul>
+  <h2>Company listings</h2>
+  <p>{disclosure.verifiedOnlyStatement} The site currently lists {n} {n === 1 ? 'company' : 'companies'}. {disclosure.rankingStatement} See <a href="/how-we-rank/">how we rank</a>.</p>
+  <h2>Photographs</h2>
+  <p>The site uses no photographs at present. Any image we add will be one we own or are licensed to use, and will never show identifiable people.</p>
+  <h2>Contact</h2>
+  <p>Email <a href={`mailto:${site.email}`}>{site.email}</a>. To correct or remove a company listing, use the <a href="/corrections/">corrections and removal</a> process.</p>
+</Article>

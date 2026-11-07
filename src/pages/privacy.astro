@@ -1,0 +1,74 @@
+---
+import Article from '../layouts/Article.astro';
+import { site, publisher, legal } from '../site.config';
+const a = publisher.address;
+const addr = a.placeholder ? `${a.locality}, ${a.country}` : [a.venue, a.street, a.locality, a.postalCode, a.country].filter(Boolean).join(', ');
+---
+<Article
+  title="Privacy Policy"
+  description="What personal data Bolivia Unpacked collects, why, how long it is kept, who processes it and your rights under UK, EU, Brazilian and US law."
+  path="/privacy/"
+  crumbs={[{ name: 'Home', path: '/' }, { name: 'Privacy Policy', path: '/privacy/' }]}
+  published={legal.policiesEffective}
+  reviewed={legal.policiesEffective}
+  reviewedLabel="Effective"
+  sources={[{ url: 'https://vercel.com/docs/analytics/privacy-policy', label: 'Vercel: Web Analytics privacy and compliance' }]}
+  rail={false}
+  article={false}
+  kicker="Legal"
+>
+  <h2>Who we are</h2>
+  <p>{site.name} ({site.domain}) is published by {legal.controllerName} ("we", "us"). We are the controller of the personal data described in this policy. Contact: <a href={`mailto:${site.email}`}>{site.email}</a>. Publishing desk: {addr}.</p>
+
+  <h2>Summary</h2>
+  <ul>
+    <li>We do not use cookies, advertising trackers or social media plugins.</li>
+    <li>We measure visits with Vercel Web Analytics, which does not use cookies and does not identify you.</li>
+    <li>If you email us, we use your email only to deal with your message.</li>
+    <li>We do not sell or share personal data for advertising.</li>
+  </ul>
+
+  <h2>What we collect and why</h2>
+  <h3>1. Visit statistics</h3>
+  <p>We use Vercel Web Analytics to count page views. It records the page visited, the referring page, the browser, operating system and device type, and the country, derived from your IP address. It does not set cookies. Visitors are distinguished by a hash calculated from the request that is discarded after 24 hours, so you cannot be tracked across days or across other websites. We use these statistics to understand which pages are useful.</p>
+  <p><strong>Legal basis:</strong> our legitimate interest in running and improving the site (UK GDPR and EU GDPR Article 6(1)(f); Brazil LGPD Article 7, IX).</p>
+
+  <h3>2. Hosting and security logs</h3>
+  <p>The site is hosted by Vercel. When your browser requests a page, Vercel's servers process your IP address and request details to deliver the page and protect the service from abuse.</p>
+  <p><strong>Legal basis:</strong> legitimate interest in delivering a secure website.</p>
+
+  <h3>3. Emails you send us</h3>
+  <p>If you email {site.email}, we receive your email address, name if given, and whatever you write. We use it only to answer you and, for corrections, to check and fix the page.</p>
+  <p><strong>Legal basis:</strong> legitimate interest in answering enquiries and keeping the site accurate. If you are a company asking about your listing, it may also be steps taken at your request.</p>
+
+  <h3>4. Correction and removal requests</h3>
+  <p>The "Request a correction or removal" link takes you to the main Tourground website. Data you give there is handled under Tourground's own privacy policy on that site.</p>
+
+  <h2>What we do not do</h2>
+  <p>We do not use cookies or similar technologies such as local storage for tracking. We do not run advertising networks, do not build profiles, do not make automated decisions with legal effects, and do not sell personal data or share it for cross-context behavioural advertising.</p>
+
+  <h2>Who processes your data</h2>
+  <p>Vercel Inc. hosts the site and provides Web Analytics, acting as our processor. Our email provider processes emails sent to us. We do not give your data to tour operators. If you contact an operator through a link on this site, that is between you and them, under their policy.</p>
+
+  <h2>International transfers</h2>
+  <p>Vercel is based in the United States and may process data in the United States and other countries. Where UK, EU or Brazilian law requires it, transfers rely on an adequacy decision, such as the EU–US Data Privacy Framework and its UK extension, or on standard contractual clauses.</p>
+
+  <h2>How long we keep data</h2>
+  <ul>
+    <li>Analytics: aggregated statistics only. The visitor hash is discarded after 24 hours.</li>
+    <li>Hosting logs: kept by Vercel for a short period under its own retention settings.</li>
+    <li>Emails: kept while we deal with your message and then for up to two years, so we have a record of corrections, then deleted.</li>
+  </ul>
+
+  <h2>Your rights</h2>
+  <p><strong>UK and EU:</strong> you can ask for access to, correction or erasure of your personal data, ask us to restrict or stop processing it, object to processing based on legitimate interests, and ask for data portability where it applies. You can complain to a supervisory authority: in the UK the Information Commissioner's Office (ico.org.uk), in the EU the data protection authority where you live or work.</p>
+  <p><strong>Brazil:</strong> under the LGPD you can ask for confirmation that we process your data, access, correction, anonymisation, blocking or deletion of unnecessary data, portability, information about sharing, and you can complain to the Autoridade Nacional de Proteção de Dados (ANPD).</p>
+  <p><strong>United States:</strong> depending on your state, you may have the right to know what personal information we hold, to access, correct or delete it, and to opt out of its sale or sharing. We do not sell or share personal information, and we will not treat you differently for using your rights.</p>
+  <p>To use any of these rights, email <a href={`mailto:${site.email}`}>{site.email}</a>. We will reply within one month, or the shorter period your law requires. We may need to confirm your identity.</p>
+
+  <h2>Children</h2>
+  <p>The site is a travel reference for adults. It is not directed at children, and we do not knowingly collect data from children.</p>
+
+  <h2>Changes</h2>
+  <p>If we change how we handle personal data, we will update this page and its effective date. Material changes will be noted at the top of the page.</p>
+</Article>

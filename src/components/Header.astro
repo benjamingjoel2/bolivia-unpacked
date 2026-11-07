@@ -1,0 +1,24 @@
+---
+import { site } from '../site.config';
+const { path } = Astro.props as { path: string };
+const nav = [
+  { href: '/guide/', label: 'Guide' },
+  { href: '/altitude/', label: 'Altitude ladder' },
+  { href: '/salt-flats-by-month/', label: 'Salt flats by month' },
+  { href: '/operators/', label: 'Operators' },
+  { href: '/questions/', label: 'Questions' },
+  { href: '/compare/', label: 'Compare' },
+];
+const current = (href: string) => path === href || (href !== '/' && path.startsWith(href));
+---
+<header class="site-header">
+  <div class="aguayo thin" aria-hidden="true"></div>
+  <div class="wrap">
+    <a class="wordmark" href="/" aria-label={`${site.name} home`}>Bolivia <span>Unpacked</span></a>
+    <nav class="site-nav" aria-label="Main">
+      <ul>
+        {nav.map((n) => <li><a href={n.href} aria-current={current(n.href) ? 'page' : undefined}>{n.label}</a></li>)}
+      </ul>
+    </nav>
+  </div>
+</header>

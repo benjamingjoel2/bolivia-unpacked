@@ -1,0 +1,27 @@
+---
+import Article from '../layouts/Article.astro';
+import { site, legal } from '../site.config';
+---
+<Article
+  title="Cookie Policy"
+  description="Bolivia Unpacked sets no cookies and uses no tracking technologies. Visit statistics come from cookieless Vercel Web Analytics."
+  path="/cookies/"
+  crumbs={[{ name: 'Home', path: '/' }, { name: 'Cookie Policy', path: '/cookies/' }]}
+  published={legal.policiesEffective}
+  reviewed={legal.policiesEffective}
+  reviewedLabel="Effective"
+  sources={[{ url: 'https://vercel.com/docs/analytics/privacy-policy', label: 'Vercel: Web Analytics privacy and compliance' }]}
+  rail={false}
+  article={false}
+  kicker="Legal"
+>
+  <h2>We set no cookies</h2>
+  <p>{site.name} does not set any cookies, first-party or third-party, and does not use local storage, session storage, pixels, fingerprinting or similar technologies to track you. That is why the site shows no cookie banner.</p>
+  <h2>Visit statistics</h2>
+  <p>We count page views with Vercel Web Analytics. It does not use cookies. It distinguishes visits with a hash of the request that is discarded after 24 hours. See the <a href="/privacy/">Privacy Policy</a> for what it records.</p>
+  <h2>Other websites</h2>
+  <p>Websites we link to, including Tourground and company websites, have their own cookie policies. They apply when you visit those sites.</p>
+  <h2>If this changes</h2>
+  <p>If we ever add a cookie or similar technology, we will update this policy first and, where the law requires, ask for your consent before setting anything that is not strictly necessary.</p>
+  <p>Questions: <a href={`mailto:${site.email}`}>{site.email}</a>.</p>
+</Article>

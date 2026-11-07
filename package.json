@@ -1,0 +1,27 @@
+{
+  "name": "bolivia-unpacked",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Bolivia Unpacked: a plain-English reference for planning Bolivia. Published by Tourground.",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "node scripts/check-content.mjs && astro build && node scripts/validate-jsonld.mjs",
+    "preview": "astro preview",
+    "check:content": "node scripts/check-content.mjs",
+    "validate:jsonld": "node scripts/validate-jsonld.mjs",
+    "feed:refresh": "node scripts/refresh-feed.mjs"
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "dependencies": {
+    "@fontsource/archivo-narrow": "^5.3.0",
+    "@fontsource/bitter": "^5.3.0",
+    "@vercel/analytics": "^2.0.1",
+    "astro": "^7.4.7"
+  },
+  "devDependencies": {
+    "yaml": "^2.9.1"
+  }
+}

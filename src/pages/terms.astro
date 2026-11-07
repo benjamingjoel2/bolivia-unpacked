@@ -1,0 +1,46 @@
+---
+import Article from '../layouts/Article.astro';
+import { site, publisher, legal, disclosure } from '../site.config';
+---
+<Article
+  title="Terms of use"
+  description="The terms for using Bolivia Unpacked: information only, no bookings made with us, accuracy, links, reuse of our content and liability."
+  path="/terms/"
+  crumbs={[{ name: 'Home', path: '/' }, { name: 'Terms', path: '/terms/' }]}
+  published={legal.policiesEffective}
+  reviewed={legal.policiesEffective}
+  reviewedLabel="Effective"
+  sources={[]}
+  rail={false}
+  article={false}
+  kicker="Legal"
+>
+  <p>These terms apply to your use of {site.name} at {site.domain}, published by {legal.controllerName}. By using the site you accept them. Contact: <a href={`mailto:${site.email}`}>{site.email}</a>.</p>
+
+  <h2>1. Information only</h2>
+  <p>The site gives general travel planning information about Bolivia. It is not medical, legal, immigration or safety advice for your circumstances. Entry rules, health advice, transport and conditions change. Check official sources, such as government travel advice, embassies and health services, before you travel. Altitude and health content does not replace advice from a doctor or travel clinic.</p>
+
+  <h2>2. We do not sell trips</h2>
+  <p>No booking or contract for travel is made with {site.name}. If you book with a company listed on the site, your contract is with that company, and its terms and Tourground's platform terms apply. We are not responsible for services a company provides.</p>
+
+  <h2>3. Company listings and rankings</h2>
+  <p>Company facts and ranks come from the Tourground directory and are shown as provided. {disclosure.rankingStatement} A listing is not a guarantee of a company's services. See <a href="/how-we-rank/">how we rank</a> and the <a href="/disclosure/">publisher disclosure</a>.</p>
+
+  <h2>4. Accuracy and corrections</h2>
+  <p>We take care to make pages accurate and to cite sources, and we show when each page was last reviewed. We cannot guarantee that every page is complete or current at the moment you read it. Report errors through <a href="/corrections/">corrections and removal</a>.</p>
+
+  <h2>5. Links to other websites</h2>
+  <p>We link to sources, official bodies, company profiles on Tourground and, for Platinum-tier companies, to company websites. We do not control those sites and are not responsible for their content or their privacy practices.</p>
+
+  <h2>6. Reusing our content</h2>
+  <p>The text and design of this site belong to {publisher.name}. You may quote short extracts, including in search results and AI-generated answers, provided you credit "{site.name}" and, where the medium allows, link to the page quoted. Do not copy whole pages or present our content as your own.</p>
+
+  <h2>7. Acceptable use</h2>
+  <p>Do not try to disrupt the site, gain unauthorised access to it, or use it for anything unlawful. Reasonable automated reading, including by search engines and AI crawlers, is welcome, as set out in our robots.txt.</p>
+
+  <h2>8. Liability</h2>
+  <p>To the extent the law allows, we are not liable for loss arising from your use of, or reliance on, the site, including travel decisions made on the basis of it. Nothing in these terms limits liability that cannot be limited by law, such as liability for death or personal injury caused by negligence or for fraud, and nothing affects your statutory rights as a consumer.</p>
+
+  <h2>9. Changes and law</h2>
+  <p>We may update these terms. The version on this page, with its effective date, applies. If you are a consumer, you keep the protection of the mandatory laws of the country where you live, and you may bring proceedings in your local courts.</p>
+</Article>

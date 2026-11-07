@@ -1,0 +1,10 @@
+---
+interface Props { sources: { url: string; label: string; accessed?: string }[]; heading?: string }
+const { sources, heading = 'Sources' } = Astro.props;
+---
+<section class="sources" aria-labelledby="sources-h">
+  <h2 id="sources-h">{heading}</h2>
+  <ol>
+    {sources.map((s) => <li><a href={s.url}>{s.label}</a>{s.accessed && <span class="muted">, accessed {s.accessed}</span>}</li>)}
+  </ol>
+</section>

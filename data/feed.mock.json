@@ -1,0 +1,77 @@
+{
+  "schema_version": "0.1-mock",
+  "generated_at": "2026-11-07",
+  "source": "MOCK. Hand-written stand-in for the Tourground directory export. Replace with the real export (see README).",
+  "destinations": [
+    {
+      "slug": "bolivia",
+      "name": "Bolivia",
+      "type": "country",
+      "content_dir": "src/content"
+    }
+  ],
+  "companies": [
+    {
+      "id": "altiplano-journeys",
+      "name": "Altiplano Journeys",
+      "kind": "dmc",
+      "country_base": "BO",
+      "delivers_in": ["BO"],
+      "sells_from": ["BO"],
+      "niches": ["salt-flats-lipez", "culture-markets", "overland-peru-chile"],
+      "tier": "founder",
+      "verified": true,
+      "founder_owned": true,
+      "rank": { "BO": 1 },
+      "summary": "Bolivia travel brand owned by the founders of Tourground through Tourground Geotrax. Full company facts will be filled from the Tourground directory export.",
+      "website": "https://altiplanojourneys.tourground.com",
+      "profile_url": "https://altiplanojourneys.tourground.com",
+      "memberships": [],
+      "sources": [
+        { "url": "https://altiplanojourneys.tourground.com", "label": "Altiplano Journeys on Tourground" }
+      ],
+      "last_checked": "2026-11-07",
+      "example": false
+    },
+    {
+      "id": "example-operator-one",
+      "name": "Example Operator One (not a real company)",
+      "kind": "agency",
+      "country_base": "BO",
+      "delivers_in": ["BO", "PE"],
+      "sells_from": ["BO"],
+      "niches": ["trekking-climbing", "family", "amazon"],
+      "tier": "verified",
+      "verified": true,
+      "founder_owned": false,
+      "rank": { "BO": 2 },
+      "summary": "EXAMPLE RECORD. Fictional company used to test templates. Never published on the live site.",
+      "website": "https://example.com",
+      "profile_url": "https://tourground.com/example-operator-one",
+      "memberships": ["Example Association (fictional)"],
+      "sources": [{ "url": "https://example.com", "label": "Example source (fictional)" }],
+      "last_checked": "2026-11-07",
+      "example": true
+    },
+    {
+      "id": "example-operator-two",
+      "name": "Example Operator Two (not a real company)",
+      "kind": "dmc",
+      "country_base": "PE",
+      "delivers_in": ["BO", "PE", "CL"],
+      "sells_from": ["PE"],
+      "niches": ["overland-peru-chile", "salt-flats-lipez"],
+      "tier": "verified",
+      "verified": false,
+      "founder_owned": false,
+      "rank": { "BO": 3 },
+      "summary": "EXAMPLE RECORD. Fictional UNVERIFIED company used to prove that unverified records are filtered out. Must never appear on any page.",
+      "website": "https://example.org",
+      "profile_url": "https://tourground.com/example-operator-two",
+      "memberships": [],
+      "sources": [{ "url": "https://example.org", "label": "Example source (fictional)" }],
+      "last_checked": "2026-11-07",
+      "example": true
+    }
+  ]
+}

@@ -1,0 +1,54 @@
+---
+import Article from '../layouts/Article.astro';
+import TierLabels from '../components/TierLabels.astro';
+import { rankedCompanies, countryName, feedReviewedDate } from '../lib/feed';
+import { nicheLists } from '../data/niches';
+import { disclosure, site } from '../site.config';
+const companies = rankedCompanies();
+const niches = nicheLists.filter((l) => l.match);
+---
+<Article
+  title="Compare verified operators for Bolivia"
+  description="Side-by-side comparison of verified operators for Bolivia, built only from Tourground directory feed fields: base, coverage, trip types and tier."
+  path="/compare/"
+  crumbs={[{ name: 'Home', path: '/' }, { name: 'Compare', path: '/compare/' }]}
+  published={site.launchDate}
+  reviewed={feedReviewedDate()}
+  reviewedLabel="Feed last updated"
+  sources={[{ url: 'https://tourground.com', label: 'Tourground directory export (company data feed)' }]}
+  kicker="Comparison"
+  lede="Every listed company in one table. Every cell comes from the directory feed. Rows are in directory rank order."
+  wide
+  noindex={companies.length < 2}
+>
+  {companies.length === 0 ? <p>No verified companies are listed yet.</p> : (
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th scope="col" class="num">Rank</th>
+            <th scope="col">Company</th>
+            <th scope="col">Tier</th>
+            <th scope="col">Based in</th>
+            <th scope="col">Delivers in</th>
+            {niches.map((n) => <th scope="col">{n.short}</th>)}
+          </tr>
+        </thead>
+        <tbody>
+          {companies.map((c) => (
+            <tr>
+              <td class="num">{c.rank[site.countryCode]}</td>
+              <th scope="row"><a href={`/companies/${c.id}/`}>{c.name}</a></th>
+              <td><TierLabels c={c} /></td>
+              <td>{countryName(c.country_base)}</td>
+              <td>{c.delivers_in.map(countryName).join(', ')}</td>
+              {niches.map((n) => <td>{c.niches.includes(n.match!) ? 'Yes' : '–'}</td>)}
+            </tr>
+          ))}
+        </tbody>
+        <caption>"Yes" means the trip type is listed in the company's directory entry. "–" means it is not listed. {disclosure.rankingStatement}</caption>
+      </table>
+    </div>
+  )}
+  {companies.length < 2 && <p class="muted">A comparison needs at least two verified companies. This table will fill as more companies are verified in the directory.</p>}
+</Article>

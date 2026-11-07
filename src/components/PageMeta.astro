@@ -1,0 +1,10 @@
+---
+import { humanDate, iso } from '../lib/content';
+interface Props { published: Date | string; reviewed: Date | string; reviewedLabel?: string; extra?: string }
+const { published, reviewed, reviewedLabel = 'Last reviewed', extra } = Astro.props;
+---
+<p class="meta">
+  <span><strong>Published</strong><time datetime={iso(published)}>{humanDate(published)}</time></span>
+  <span><strong>{reviewedLabel}</strong><time datetime={iso(reviewed)}>{humanDate(reviewed)}</time></span>
+  {extra && <span>{extra}</span>}
+</p>

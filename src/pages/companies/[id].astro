@@ -1,0 +1,67 @@
+---
+import Article from '../../layouts/Article.astro';
+import TierLabels from '../../components/TierLabels.astro';
+import { publishedCompanies, countryName, kindLabel, outboundLink, listsForCompany, companiesForList, rankOf } from '../../lib/feed';
+import { companyLd } from '../../lib/seo';
+import { disclosure, publisher, site } from '../../site.config';
+import { nicheLists } from '../../data/niches';
+
+export function getStaticPaths() {
+  // Only publishable companies get a page. A company removed from the feed (or marked removed) has no page in the next build.
+  return publishedCompanies().map((c) => ({ params: { id: c.id }, props: { c } }));
+}
+const { c } = Astro.props;
+const path = `/companies/${c.id}/`;
+const link = outboundLink(c);
+const lists = listsForCompany(c);
+const nicheTitle = (n: string) => nicheLists.find((l) => l.match === n)?.short ?? n;
+const rank = rankOf(c);
+const desc = `${c.name}: fact page. ${kindLabel(c.kind)} based in ${countryName(c.country_base)}. Verification tier, where it delivers, specialties and sources.`.slice(0, 200);
+---
+<Article
+  title={c.name}
+  description={desc}
+  path={path}
+  crumbs={[{ name: 'Home', path: '/' }, { name: 'Operators', path: '/operators/' }, { name: c.name, path }]}
+  published={c.listed_since ?? site.launchDate}
+  reviewed={c.last_checked}
+  reviewedLabel="Last checked"
+  sources={c.sources}
+  kicker="Company fact page"
+  noindex={c.example === true}
+  jsonld={[companyLd(c, path)]}
+>
+  {c.example && <p class="notice example"><strong>{disclosure.examplesBanner}</strong></p>}
+  <p><TierLabels c={c} /></p>
+  {c.founder_owned && <p class="notice small">{disclosure.founderOwnedExplainer}</p>}
+  <p>{c.summary}</p>
+
+  <dl class="facts">
+    <div><dt>What it is</dt><dd>{kindLabel(c.kind)}</dd></div>
+    <div><dt>Based in</dt><dd>{countryName(c.country_base)}</dd></div>
+    <div><dt>Delivers trips in</dt><dd>{c.delivers_in.map(countryName).join(', ')}</dd></div>
+    <div><dt>Sells from</dt><dd>{c.sells_from.map(countryName).join(', ')}</dd></div>
+    <div><dt>Specialties</dt><dd>{[...c.niches.map(nicheTitle), ...(c.specialties ?? [])].join(', ') || 'Not listed in the directory'}</dd></div>
+    <div><dt>Memberships</dt><dd>{c.memberships && c.memberships.length ? c.memberships.join(', ') : 'None listed in the directory'}</dd></div>
+    <div><dt>Verification tier</dt><dd>{disclosure.tierLabels[c.tier] ?? c.tier}{c.verified ? ' · verified by Tourground' : ''}</dd></div>
+    <div><dt>Directory rank (Bolivia)</dt><dd>{rank !== null ? rank : 'Not ranked for Bolivia'}</dd></div>
+    <div><dt>Last checked</dt><dd>{c.last_checked}</dd></div>
+  </dl>
+
+  <p><strong>Contact or book:</strong> <a href={link.href} rel={link.rel}>{link.label}</a>{link.paid && <span class="muted"> (paid link: Platinum tier)</span>}</p>
+
+  {lists.length > 0 && (
+    <>
+      <h2>Appears in these rankings</h2>
+      <ul>
+        {lists.map((l) => {
+          const pos = companiesForList(l).findIndex((x) => x.id === c.id) + 1;
+          return <li><a href={`/operators/${l.slug}/`}>{l.title}</a>: position {pos}</li>;
+        })}
+      </ul>
+    </>
+  )}
+
+  <p class="small muted">{disclosure.tierExplainer} Company facts on this page come only from the Tourground directory export; they are not edited by this site.</p>
+  <p><a href={publisher.correctionUrl}>{disclosure.correctionLinkText}</a></p>
+</Article>

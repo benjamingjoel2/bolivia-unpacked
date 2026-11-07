@@ -1,0 +1,64 @@
+---
+import Article from '../layouts/Article.astro';
+import altitude from '../data/altitude.json';
+
+const MAX = 6600;
+const stops = [...altitude.stops].sort((a, b) => b.m - a.m);
+function advice(s: (typeof stops)[number]): { zone: string; text: string } {
+  const m = s.m;
+  if (s.kind === 'summit') {
+    return m > 6000
+      ? { zone: 'Expedition', text: 'Climb only after a long build-up above 3,500 m and on lower peaks, with a guide. Descend at once with signs of HACE or HAPE.' }
+      : { zone: 'Day ascent', text: 'Go only after several days at La Paz height. Turn back with symptoms.' };
+  }
+  if (s.kind === 'pass' || s.kind === 'viewpoint') {
+    return { zone: 'Brief visit', text: 'You pass through rather than sleep here. Arrive acclimatised to at least 3,500 m. Descend if symptoms start.' };
+  }
+  if (m < 2500) return { zone: 'Low', text: 'Altitude illness is unlikely. A good place to start or to recover.' };
+  if (m < 3000) return { zone: 'Moderate', text: 'Mild altitude effects are possible on fast arrival. A useful stepping stone before going higher.' };
+  if (m < 4000) return { zone: 'High', text: 'Arriving from low ground, take two or three easy days. From here, raise sleeping height by no more than about 500 m a day.' };
+  return { zone: 'Very high', text: 'Sleep here only after several days above 3,500 m. Expect cold, poor sleep and breathlessness. Never go higher with symptoms.' };
+}
+---
+<Article
+  title="Bolivia altitude ladder"
+  description="Every major stop in Bolivia at its height in metres, from the Amazon to 6,000 m summits, with sourced acclimatisation advice for each step up."
+  path="/altitude/"
+  crumbs={[{ name: 'Home', path: '/' }, { name: 'Altitude ladder', path: '/altitude/' }]}
+  published={altitude.published}
+  reviewed={altitude.reviewed}
+  sources={altitude.sources}
+  kicker="Signature reference"
+  lede="Bolivia runs from about 230 m in the Amazon to over 6,500 m. Here is every major stop at its height, with the acclimatisation advice for climbing to it."
+  elevation={3640}
+  elevationLabel="La Paz"
+>
+  <p class="small muted">{altitude.note} Each height links to its source.</p>
+
+  <h2>The rule for going up</h2>
+  <p>Above about 3,000 m, clinical guidelines from the CDC and the Wilderness Medical Society advise raising your <strong>sleeping</strong> altitude by no more than about 500 m a day, with a rest day every three to four days. Never go higher with symptoms of altitude sickness. Read more in <a href="/guide/altitude-and-acclimatisation/">altitude and acclimatisation</a>.</p>
+
+  <h2>The ladder</h2>
+  <ol class="ladder" aria-label="Stops ordered from highest to lowest">
+    {stops.map((s) => {
+      const a = advice(s);
+      return (
+        <li>
+          <span class="m">{s.m.toLocaleString('en-GB')} m</span>
+          <span>
+            <span class="name">{s.guide ? <a href={s.guide}>{s.name}</a> : s.name}</span> <span class="zone">{a.zone}</span>
+            <span class="bar" style={`width:${Math.round((s.m / MAX) * 100)}%`} aria-hidden="true"></span>
+            <small>{s.note} <a href={s.source}>Source for height</a></small>
+            <small><strong>Climbing to it:</strong> {a.text}</small>
+          </span>
+        </li>
+      );
+    })}
+  </ol>
+
+  <h2>Advice by height band</h2>
+  <dl class="facts">
+    {altitude.advice.map((a) => <div><dt>{a.band}</dt><dd>{a.text} <a href={a.source} class="small">Source</a></dd></div>)}
+  </dl>
+  <p class="small muted">This page is general information, not medical advice. Speak to a doctor or travel clinic about your own health and any medicine before you travel.</p>
+</Article>

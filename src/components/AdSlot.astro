@@ -1,0 +1,23 @@
+---
+/**
+ * Paid placement slot. Paid placement is NOT built yet: `paidPlacements` in site.config is empty,
+ * so this renders nothing. When filled, it renders at the top of the page, labelled with
+ * disclosure.paidLabel, visually separated from rankings, with rel="sponsored nofollow" links.
+ * It never touches ranking order.
+ */
+import { paidPlacements, disclosure } from '../site.config';
+const { page } = Astro.props as { page: string };
+const items = paidPlacements.filter((p) => p.pages.includes(page));
+---
+{items.length > 0 && (
+  <aside class="ad-slot" aria-label={disclosure.paidLabel}>
+    <p class="ad-label">{disclosure.paidLabel}</p>
+    {items.map((it) => (
+      <div>
+        <p><strong><a href={it.href} rel={disclosure.paidLinkRel}>{it.title}</a></strong></p>
+        <p>{it.body}</p>
+      </div>
+    ))}
+    <p class="small muted">{disclosure.paidExplainer}</p>
+  </aside>
+)}

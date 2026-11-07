@@ -1,0 +1,31 @@
+---
+import Article from '../../layouts/Article.astro';
+import { nicheLists } from '../../data/niches';
+import { companiesForList, feedReviewedDate } from '../../lib/feed';
+import { disclosure, site } from '../../site.config';
+const lists = nicheLists.map((l) => ({ l, n: companiesForList(l).length }));
+---
+<Article
+  title="Verified operators in Bolivia, ranked"
+  description="Rankings of verified tour operators for Bolivia by type of trip, ordered only by the Tourground directory rank. Never paid."
+  path="/operators/"
+  crumbs={[{ name: 'Home', path: '/' }, { name: 'Operators', path: '/operators/' }]}
+  published={site.launchDate}
+  reviewed={feedReviewedDate()}
+  reviewedLabel="Feed last updated"
+  sources={[{ url: 'https://tourground.com', label: 'Tourground directory export (company data feed)' }]}
+  kicker="Rankings"
+  lede={disclosure.rankingStatement}
+>
+  <p>{disclosure.verifiedOnlyStatement}</p>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th scope="col">List</th><th scope="col" class="num">Companies</th></tr></thead>
+      <tbody>
+        {lists.map(({ l, n }) => <tr><td><a href={`/operators/${l.slug}/`}>{l.title}</a></td><td class="num">{n}</td></tr>)}
+      </tbody>
+      <caption>Counts computed from the current Tourground directory feed at build time.</caption>
+    </table>
+  </div>
+  <p>See also the <a href="/compare/">comparison table</a> and <a href="/how-we-rank/">how we rank</a>.</p>
+</Article>

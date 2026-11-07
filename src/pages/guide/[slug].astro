@@ -1,0 +1,29 @@
+---
+import Article from '../../layouts/Article.astro';
+import { guidePages } from '../../lib/content';
+import { render } from 'astro:content';
+
+export async function getStaticPaths() {
+  const pages = await guidePages();
+  return pages.map((entry) => ({ params: { slug: entry.id }, props: { entry } }));
+}
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+const d = entry.data;
+const path = `/guide/${entry.id}/`;
+---
+<Article
+  title={d.title}
+  description={d.description}
+  path={path}
+  crumbs={[{ name: 'Home', path: '/' }, { name: 'Guide', path: '/guide/' }, { name: d.title, path }]}
+  published={d.published}
+  reviewed={d.reviewed}
+  sources={d.sources}
+  kicker={d.section === 'regions' ? 'Region' : 'Planning'}
+  lede={d.description}
+  elevation={d.elevation_m}
+  elevationLabel={d.elevation_label}
+>
+  <Content />
+</Article>

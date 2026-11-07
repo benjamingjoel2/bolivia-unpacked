@@ -1,0 +1,34 @@
+---
+import Article from '../../layouts/Article.astro';
+import { guidePages } from '../../lib/content';
+import { destinationLd } from '../../lib/seo';
+import { site } from '../../site.config';
+const guide = await guidePages();
+const regions = guide.filter((g) => g.data.section === 'regions');
+const planning = guide.filter((g) => g.data.section === 'planning');
+const latest = guide.map((g) => g.data.reviewed).sort((a, b) => +b - +a)[0] ?? site.launchDate;
+const sources = [...new Map(guide.flatMap((g) => g.data.sources).map((s) => [s.url, s])).values()].slice(0, 12);
+---
+<Article
+  title="Bolivia destination guide"
+  description="The Bolivia guide: regions from La Paz to the Amazon, seasons, altitude and acclimatisation, getting around and typical routes."
+  path="/guide/"
+  crumbs={[{ name: 'Home', path: '/' }, { name: 'Guide', path: '/guide/' }]}
+  published={site.launchDate}
+  reviewed={latest}
+  sources={sources}
+  kicker="Destination guide"
+  lede="Bolivia by region, then the planning basics: seasons, altitude, transport and routes. Every page lists its sources."
+  jsonld={[destinationLd()]}
+>
+  <h2>Regions</h2>
+  <ol class="index-list">
+    {regions.map((g) => <li><div><a href={`/guide/${g.id}/`}>{g.data.title}</a>{g.data.elevation_m && <span class="muted small"> · about {g.data.elevation_m.toLocaleString('en-GB')} m</span>}<p>{g.data.description}</p></div></li>)}
+  </ol>
+  <h2>Planning</h2>
+  <ol class="index-list">
+    {planning.map((g) => <li><div><a href={`/guide/${g.id}/`}>{g.data.title}</a><p>{g.data.description}</p></div></li>)}
+    <li><div><a href="/altitude/">The altitude ladder</a><p>Every major stop at its height, with sourced acclimatisation advice.</p></div></li>
+    <li><div><a href="/salt-flats-by-month/">The salt flats, month by month</a><p>Mirror, Lípez access, cold and roads.</p></div></li>
+  </ol>
+</Article>

@@ -1,0 +1,25 @@
+---
+import Article from '../../layouts/Article.astro';
+import { qaPages } from '../../lib/content';
+import { faqLd } from '../../lib/seo';
+import { site } from '../../site.config';
+const qa = await qaPages();
+const latest = qa.map((q) => q.data.reviewed).sort((a, b) => +b - +a)[0] ?? site.launchDate;
+const sources = [...new Map(qa.flatMap((q) => q.data.sources).map((s) => [s.url, s])).values()];
+---
+<Article
+  title="Traveller questions about Bolivia"
+  description="Short, sourced answers to real traveller questions about Bolivia: the salt flats mirror, altitude in La Paz, Uyuni trip safety and combining Bolivia with Peru."
+  path="/questions/"
+  crumbs={[{ name: 'Home', path: '/' }, { name: 'Questions', path: '/questions/' }]}
+  published={site.launchDate}
+  reviewed={latest}
+  sources={sources}
+  kicker="Questions and answers"
+  lede="The short answer comes first. Each question has its own page with the detail and sources."
+  jsonld={qa.length ? [faqLd(qa.map((q) => ({ q: q.data.question, a: q.data.short_answer })))] : []}
+>
+  <ol class="index-list">
+    {qa.map((q) => <li><div><a href={`/questions/${q.id}/`}>{q.data.question}</a><p>{q.data.short_answer}</p></div></li>)}
+  </ol>
+</Article>

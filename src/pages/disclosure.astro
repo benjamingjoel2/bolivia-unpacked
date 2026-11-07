@@ -1,0 +1,23 @@
+---
+import Article from '../layouts/Article.astro';
+import { site, disclosure } from '../site.config';
+---
+<Article
+  title="Publisher disclosure"
+  description="Who publishes Bolivia Unpacked, Tourground's commercial interest, founder-owned brands, paid links and how advertising is labelled."
+  path="/disclosure/"
+  crumbs={[{ name: 'Home', path: '/' }, { name: 'Publisher disclosure', path: '/disclosure/' }]}
+  published={site.launchDate}
+  reviewed={site.launchDate}
+  sources={[]}
+  rail={false}
+  kicker="Disclosure"
+>
+  {disclosure.publisherDisclosure.map((p) => <p>{p}</p>)}
+  <h2>Labels you will see</h2>
+  <dl class="facts">
+    <div><dt>{disclosure.founderOwnedLabel}</dt><dd>{disclosure.founderOwnedExplainer}</dd></div>
+    <div><dt>{disclosure.paidLabel}</dt><dd>{disclosure.paidExplainer}</dd></div>
+    <div><dt>Paid link</dt><dd>A link to a Platinum-tier company's own website, marked rel="{disclosure.paidLinkRel}".</dd></div>
+  </dl>
+</Article>

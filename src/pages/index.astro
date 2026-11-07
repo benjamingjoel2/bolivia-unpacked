@@ -1,0 +1,95 @@
+---
+import Base from '../layouts/Base.astro';
+import AguayoDivider from '../components/AguayoDivider.astro';
+import PageMeta from '../components/PageMeta.astro';
+import Sources from '../components/Sources.astro';
+import { site, disclosure } from '../site.config';
+import { guidePages, qaPages } from '../lib/content';
+import { rankedCompanies, publishedCompanies } from '../lib/feed';
+import { nicheLists } from '../data/niches';
+import { destinationLd, articleLd } from '../lib/seo';
+import altitude from '../data/altitude.json';
+
+const guide = await guidePages();
+const regions = guide.filter((g) => g.data.section === 'regions');
+const planning = guide.filter((g) => g.data.section === 'planning');
+const qa = await qaPages();
+const ranked = rankedCompanies();
+const companyCount = publishedCompanies().length;
+const ladderPreview = altitude.stops.filter((s) => ['La Paz (city centre)', 'Potosí', 'Sol de Mañana geyser field', 'Salar de Uyuni', 'Sucre', 'Rurrenabaque', 'Huayna Potosí (summit)'].includes(s.name));
+const desc = site.positioning;
+const sources = [
+  { url: 'https://www.britannica.com/place/Bolivia', label: 'Encyclopaedia Britannica: Bolivia' },
+  { url: 'https://www.cdc.gov/yellow-book/hcp/environmental-hazards-risks/high-elevation-travel-and-illness.html', label: 'CDC Yellow Book: High-Elevation Travel and Illness' },
+  { url: 'https://en.wikipedia.org/wiki/El_Alto_International_Airport', label: 'Wikipedia: El Alto International Airport' },
+  { url: 'https://whc.unesco.org/en/statesparties/bo', label: 'UNESCO World Heritage: Bolivia' },
+];
+---
+<Base title={site.name} description={desc} path="/" ogType="website" jsonld={[destinationLd(), articleLd({ title: `${site.name}: ${site.tagline}`, description: desc, path: '/', published: site.launchDate, modified: site.launchDate, about: { '@id': `${site.url}/#bolivia` } })]}>
+  <div class="page">
+    <div class="content" style="max-width:none">
+      <p class="kicker">A reference publication · Published by Tourground</p>
+      <h1>Bolivia Unpacked</h1>
+      <p class="lede">{site.positioning}</p>
+      <PageMeta published={site.launchDate} reviewed={site.launchDate} />
+
+      <h2>What this site is</h2>
+      <div style="max-width:var(--measure)">
+        <p>Bolivia is one of the harder countries in South America to plan. Much of it is very high, the seasons change what you can reach, and distances are long. This site sets out the facts in plain English, with sources, so you can plan a route and choose who to book with.</p>
+        <p>It is published by Tourground, a directory and booking platform for tour operators. Company listings come only from the Tourground directory and include only verified companies. {disclosure.rankingStatement} Read <a href="/how-we-rank/">how we rank</a> and the <a href="/disclosure/">publisher disclosure</a>.</p>
+      </div>
+
+      <AguayoDivider />
+
+      <h2>Bolivia at a glance</h2>
+      <dl class="facts" style="max-width:var(--measure)">
+        <div><dt>Main gateways</dt><dd>El Alto International Airport, La Paz (about 4,061 m) and Viru Viru International Airport, Santa Cruz (about 400 m)</dd></div>
+        <div><dt>Seat of government</dt><dd>La Paz. The constitutional capital is Sucre.</dd></div>
+        <div><dt>Altitude</dt><dd>Most headline sights are above 3,500 m. See the <a href="/altitude/">altitude ladder</a>.</dd></div>
+        <div><dt>Seasons</dt><dd>Dry season roughly May to October; wet season roughly December to March. See <a href="/guide/seasons/">dry and wet seasons</a>.</dd></div>
+        <div><dt>Salt-flats mirror</dt><dd>Wet season, usually about late December to March, depending on rain. See <a href="/salt-flats-by-month/">month by month</a>.</dd></div>
+        <div><dt>Lowland health</dt><dd>Yellow fever and malaria advice applies to lower areas. See <a href="/guide/entry-and-health/">entry and health</a>.</dd></div>
+        <div><dt>Verified companies listed</dt><dd>{companyCount} {companyCount === 1 ? 'company' : 'companies'} (computed from the current Tourground directory feed)</dd></div>
+      </dl>
+
+      <h2>The altitude ladder, in brief</h2>
+      <ol class="ladder" style="max-width:var(--measure)">
+        {ladderPreview.map((s) => (
+          <li><span class="m">{s.m.toLocaleString('en-GB')} m</span><span><span class="name">{s.name}</span></span></li>
+        ))}
+      </ol>
+      <p><a href="/altitude/">Every major stop, with acclimatisation advice for each step</a></p>
+
+      <AguayoDivider />
+
+      <h2>The guide: regions</h2>
+      <ol class="index-list" style="max-width:var(--measure)">
+        {regions.map((g) => <li><div><a href={`/guide/${g.id}/`}>{g.data.title}</a><p>{g.data.description}</p></div></li>)}
+      </ol>
+
+      <h2>The guide: planning</h2>
+      <ol class="index-list" style="max-width:var(--measure)">
+        {planning.map((g) => <li><div><a href={`/guide/${g.id}/`}>{g.data.title}</a><p>{g.data.description}</p></div></li>)}
+        <li><div><a href="/altitude/">The altitude ladder</a><p>Every major stop at its height in metres, with sourced acclimatisation advice.</p></div></li>
+        <li><div><a href="/salt-flats-by-month/">The salt flats, month by month</a><p>Mirror effect, access to the Lípez lagoons, cold and roads.</p></div></li>
+      </ol>
+
+      <AguayoDivider />
+
+      <h2>Traveller questions</h2>
+      <ul class="index-list" style="max-width:var(--measure)">
+        {qa.map((q) => <li><div><a href={`/questions/${q.id}/`}>{q.data.question}</a><p>{q.data.short_answer}</p></div></li>)}
+      </ul>
+
+      <h2>Verified operators</h2>
+      <div style="max-width:var(--measure)">
+        <p>Rankings by type of trip, ordered only by the Tourground directory rank for Bolivia.</p>
+        <ul>
+          {nicheLists.map((l) => <li><a href={`/operators/${l.slug}/`}>{l.title}</a></li>)}
+        </ul>
+        {ranked.length > 0 && <p>Also see the <a href="/compare/">comparison table</a> of every listed company.</p>}
+      </div>
+      <Sources sources={sources} />
+    </div>
+  </div>
+</Base>

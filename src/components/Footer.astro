@@ -1,0 +1,32 @@
+---
+import { site, publisher, disclosure } from '../site.config';
+import AguayoDivider from './AguayoDivider.astro';
+const a = publisher.address;
+const addressLine = a.placeholder
+  ? `${a.locality}, ${a.country} (street address pending confirmation)`
+  : [a.venue, a.street, a.locality, a.postalCode, a.country].filter(Boolean).join(', ');
+---
+<footer class="site-footer">
+  <AguayoDivider />
+  <div class="wrap cols">
+    <div>
+      <p class="published"><a href={publisher.url}>{disclosure.footerPublishedBy}</a></p>
+      <p>{disclosure.footerShort}</p>
+      <p class="small">{site.editorLine}</p>
+      <ul>
+        <li><a href="/about/">About</a></li>
+        <li><a href="/how-we-rank/">How we rank</a></li>
+        <li><a href="/disclosure/">Publisher disclosure</a></li>
+        <li><a href="/corrections/">Corrections and removal</a></li>
+        <li><a href="/privacy/">Privacy Policy</a></li>
+        <li><a href="/terms/">Terms</a></li>
+        <li><a href="/cookies/">Cookie Policy</a></li>
+      </ul>
+    </div>
+    <div>
+      <p><strong>Contact</strong><br /><a href={`mailto:${site.email}`}>{site.email}</a></p>
+      <p><strong>Publishing desk</strong><br />{addressLine}</p>
+      <p class="small">{site.domain}</p>
+    </div>
+  </div>
+</footer>

@@ -1,0 +1,33 @@
+{
+  "title": "Salar de Uyuni and Lípez, month by month",
+  "published": "2026-11-07",
+  "reviewed": "2026-11-07",
+  "note": "This is the typical seasonal pattern, not a forecast. Rain, and therefore the mirror and road access, changes from year to year. Ask your operator about conditions in the weeks before you travel.",
+  "legend": {
+    "mirror": "Chance of the mirror effect (standing water on the salt)",
+    "lipez": "Access across the salar and south to the Lípez lagoons",
+    "cold": "Night cold at the high lodges",
+    "roads": "Road and track conditions"
+  },
+  "months": [
+    { "m": "January", "season": "Wet", "mirror": ["high", "Likely in a normal rainy season"], "lipez": ["mid", "Crossings can be blocked by water; routes are changed"], "cold": "Cold nights", "roads": "Rain and mud on tracks; occasional closures" },
+    { "m": "February", "season": "Wet", "mirror": ["high", "Likely in a normal rainy season"], "lipez": ["mid", "Crossings can be blocked by water; routes are changed"], "cold": "Cold nights", "roads": "Rain and mud on tracks; occasional closures" },
+    { "m": "March", "season": "Wet, ending", "mirror": ["high", "Often still possible, drying later in the month"], "lipez": ["mid", "Improving as the water recedes"], "cold": "Cold nights", "roads": "Drying out" },
+    { "m": "April", "season": "Transition", "mirror": ["mid", "Possible in places after a wet year"], "lipez": ["high", "Usually open"], "cold": "Colder nights", "roads": "Generally dry" },
+    { "m": "May", "season": "Dry", "mirror": ["low", "Unlikely"], "lipez": ["high", "Open"], "cold": "Very cold nights begin", "roads": "Dry" },
+    { "m": "June", "season": "Dry, winter", "mirror": ["low", "Unlikely"], "lipez": ["high", "Open; snow can close high passes for short periods"], "cold": "Very cold nights, well below freezing", "roads": "Dry; snow possible in Lípez" },
+    { "m": "July", "season": "Dry, winter", "mirror": ["low", "Unlikely"], "lipez": ["high", "Open; snow can close high passes for short periods"], "cold": "Very cold nights, well below freezing", "roads": "Dry; snow possible in Lípez" },
+    { "m": "August", "season": "Dry, winter", "mirror": ["low", "Unlikely"], "lipez": ["high", "Open; strong winds common"], "cold": "Very cold nights, well below freezing", "roads": "Dry, dusty, windy" },
+    { "m": "September", "season": "Dry", "mirror": ["low", "Unlikely"], "lipez": ["high", "Open"], "cold": "Cold nights", "roads": "Dry" },
+    { "m": "October", "season": "Dry", "mirror": ["low", "Unlikely"], "lipez": ["high", "Open"], "cold": "Cold nights", "roads": "Dry" },
+    { "m": "November", "season": "Transition", "mirror": ["low", "Unlikely, early rain possible late in the month"], "lipez": ["high", "Usually open"], "cold": "Cold nights", "roads": "Generally dry" },
+    { "m": "December", "season": "Wet, starting", "mirror": ["mid", "Possible from late December if the rains have started"], "lipez": ["high", "Usually open early in the month"], "cold": "Cold nights", "roads": "Rain starting" }
+  ],
+  "sources": [
+    { "url": "https://www.britannica.com/place/Uyuni-Salt-Flat", "label": "Encyclopaedia Britannica: Uyuni Salt Flat" },
+    { "url": "https://en.wikipedia.org/wiki/Salar_de_Uyuni", "label": "Wikipedia: Salar de Uyuni (climate and seasonal flooding)" },
+    { "url": "https://senamhi.gob.bo/", "label": "SENAMHI, Bolivian national meteorology and hydrology service" },
+    { "url": "https://www.gov.uk/foreign-travel-advice/bolivia/safety-and-security", "label": "UK FCDO travel advice: Bolivia, safety and security (Salar de Uyuni tours)" },
+    { "url": "https://www.sernap.gob.bo/", "label": "SERNAP, Bolivian protected areas service (Eduardo Avaroa reserve)" }
+  ]
+}
