@@ -50,6 +50,147 @@
           "value": "text/plain; charset=utf-8"
         }
       ]
+    },
+    {
+      "source": "/rss.xml",
+      "headers": [
+        {
+          "key": "Content-Type",
+          "value": "application/rss+xml; charset=utf-8"
+        }
+      ]
+    }
+  ],
+  "redirects": [
+    {
+      "source": "/guide/",
+      "destination": "/blog/",
+      "permanent": true
+    },
+    {
+      "source": "/guide/altitude-and-acclimatisation/",
+      "destination": "/blog/altitude-in-la-paz/",
+      "permanent": true
+    },
+    {
+      "source": "/guide/amazon-and-rurrenabaque/",
+      "destination": "/blog/bolivian-amazon-rurrenabaque/",
+      "permanent": true
+    },
+    {
+      "source": "/guide/cordillera-real/",
+      "destination": "/destinations/la-paz/",
+      "permanent": true
+    },
+    {
+      "source": "/guide/entry-and-health/",
+      "destination": "/blog/first-timers-guide-to-bolivia/",
+      "permanent": true
+    },
+    {
+      "source": "/guide/getting-around/",
+      "destination": "/blog/first-timers-guide-to-bolivia/",
+      "permanent": true
+    },
+    {
+      "source": "/guide/la-paz-and-the-altiplano/",
+      "destination": "/destinations/la-paz/",
+      "permanent": true
+    },
+    {
+      "source": "/guide/lake-titicaca/",
+      "destination": "/blog/lake-titicaca-bolivian-side/",
+      "permanent": true
+    },
+    {
+      "source": "/guide/potosi-and-sucre/",
+      "destination": "/blog/sucre-and-potosi/",
+      "permanent": true
+    },
+    {
+      "source": "/guide/santa-cruz-and-the-jesuit-missions/",
+      "destination": "/blog/bolivia-14-day-itinerary/",
+      "permanent": true
+    },
+    {
+      "source": "/guide/seasons/",
+      "destination": "/blog/uyuni-wet-or-dry-season/",
+      "permanent": true
+    },
+    {
+      "source": "/guide/typical-routes/",
+      "destination": "/blog/bolivia-14-day-itinerary/",
+      "permanent": true
+    },
+    {
+      "source": "/guide/uyuni-and-sur-lipez/",
+      "destination": "/blog/uyuni-salt-flats-3-day-tour/",
+      "permanent": true
+    },
+    {
+      "source": "/guide/yungas/",
+      "destination": "/destinations/yungas/",
+      "permanent": true
+    },
+    {
+      "source": "/questions/",
+      "destination": "/blog/",
+      "permanent": true
+    },
+    {
+      "source": "/questions/combine-bolivia-and-peru-in-two-weeks/",
+      "destination": "/blog/bolivia-and-peru-in-one-trip/",
+      "permanent": true
+    },
+    {
+      "source": "/questions/when-do-the-salt-flats-turn-into-a-mirror/",
+      "destination": "/blog/uyuni-wet-or-dry-season/",
+      "permanent": true
+    },
+    {
+      "source": "/questions/is-the-uyuni-3-day-trip-safe/",
+      "destination": "/blog/uyuni-salt-flats-3-day-tour/",
+      "permanent": true
+    },
+    {
+      "source": "/questions/how-bad-is-altitude-sickness-in-la-paz/",
+      "destination": "/blog/altitude-in-la-paz/",
+      "permanent": true
+    },
+    {
+      "source": "/questions/do-i-need-yellow-fever-vaccine-for-rurrenabaque/",
+      "destination": "/blog/bolivian-amazon-rurrenabaque/",
+      "permanent": true
+    },
+    {
+      "source": "/altitude/",
+      "destination": "/blog/altitude-in-la-paz/",
+      "permanent": true
+    },
+    {
+      "source": "/salt-flats-by-month/",
+      "destination": "/blog/uyuni-wet-or-dry-season/",
+      "permanent": true
+    },
+    {
+      "source": "/how-we-rank/",
+      "destination": "/disclosure/",
+      "permanent": true
+    },
+    {
+      "source": "/compare/",
+      "destination": "/about/",
+      "permanent": true
+    },
+    {
+      "source": "/operators/:path*",
+      "destination": "/about/",
+      "permanent": true
+    },
+    {
+      "source": "/companies/:path*",
+      "destination": "/about/",
+      "permanent": true
     }
   ]
 }

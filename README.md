@@ -1,8 +1,8 @@
 # Bolivia Unpacked
 
-The plain-English reference for planning Bolivia: altitude, the salt flats, the Andes and the Amazon, and the verified operators who make it easy.
+A Tourground travel blog for people planning a trip to Bolivia: story-led, practical posts, each ending with a "Plan this trip" box that points to a verified local operator in the Tourground directory.
 
-A Tourground destination booster: a static, citable reference site at **https://boliviaunpacked.tourground.com**, built with [Astro](https://astro.build) and hosted on Vercel. Published by Tourground.
+Live at **https://boliviaunpacked.tourground.com**. Astro, fully static, hosted on Vercel (project `bolivia-unpacked`). Published by Tourground.
 
 ## Run it
 
@@ -15,87 +15,58 @@ npm run build      # content gate → astro build → JSON-LD and page checks
 npm run preview    # serve dist/
 ```
 
-`npm run build` fails if any reviewed page lacks sources, if the feed is malformed, or if the built HTML breaks a rule (one H1, canonical, footer line, JSON-LD validity, no phone/WhatsApp, only the allowed email, no unverified or example companies).
-
-To see the fake example companies while working on templates: `INCLUDE_EXAMPLES=1 npm run dev`. Never set this on Vercel.
+`npm run build` fails if a post breaks a rule: missing sources, outside 1,200–2,000 words, health/entry/safety content without a `factsChecked` date, anything that looks like a price, a hero photo without a credit record, a post page without its Plan box or sources, an image without alt text, a page without Organization + WebSite + BreadcrumbList JSON-LD (plus BlogPosting on posts), Altiplano Journeys shown without its founder-owned label, or a paid placement without the "Advertisement feature" label.
 
 ## Where things live
 
 | What | File |
 | --- | --- |
-| Name, domain, email, editor line, accent colour, address, **all disclosure and paid-label wording**, legal sign-off | `src/site.config.ts` |
-| Company feed (mock until the real export exists) | `data/feed.mock.json` → replaced by `data/feed.json` |
-| Feed rules (verified-only gate, ranking, links) | `src/lib/feed.ts` |
-| Ranked lists (niches) | `src/data/niches.ts` |
-| Guide pages | `src/content/guide/*.md` |
-| Q&A pages | `src/content/qa/*.md` |
-| Altitude ladder data | `src/data/altitude.json` |
-| Salt-flats month data | `src/data/salar-months.json` |
-| Theme (AGUAYO) | `src/styles/global.css` |
-| Paid placement slot (empty) | `src/components/AdSlot.astro`, `paidPlacements` in config |
-| Field assumptions | `DATA-FIELDS.md` |
+| Name, domain, email, disclosure wording, paid-label wording, newsletter settings, directory URL | `src/site.config.ts` |
+| Posts | `src/content/posts/*.md` (file name = URL slug, `/blog/<slug>/`) |
+| Categories and destinations | `src/data/taxonomy.ts` |
+| Authors (real bylines only) | `src/data/authors.ts` |
+| Photos and their credits | `src/assets/photos/*.jpg` + `src/data/photos.json` |
+| Operator data (verified-only gate) | `data/feed.mock.json` → replaced by `data/feed.json`; `src/lib/feed.ts` |
+| Paid placements ("Advertisement feature") | `paidPlacements` in `src/site.config.ts`; `src/components/AdSlot.astro` |
+| Styles | `src/styles/global.css` |
 | Facts awaiting checks | `FACTS-TO-VERIFY.md` |
 
-## Add reviewed content
+## Write a post
 
-1. Create a markdown file in `src/content/guide/` or `src/content/qa/`. The file name becomes the URL slug.
-2. Front matter:
+Front matter (quote any value containing a colon):
 
 ```yaml
 ---
-title: "Page title"
-description: "One or two sentences, 20–200 characters."
-published: 2026-11-07
-reviewed: 2026-11-07
-status: draft            # draft | reviewed — only reviewed is published
+title: "Post title"
+description: "120–200 character summary."
+published: 2026-11-11
+updated: 2026-11-11
+author: desk
+categories: [destinations, adventure]   # first is primary: destinations, itineraries, altitude-health, adventure, food-culture, travel-tips
+destinations: [uyuni]                   # la-paz, uyuni, titicaca, sucre-potosi, amazon, yungas
+hero: uyuni-salt-crust                  # key in src/data/photos.json
+featured: false                         # the home page's featured story
+startHere: false                        # in the home page's "Start here" strip
+operator: altiplano-journeys            # id from the Tourground feed
+planNote: "What to ask the operator for this trip."
+factsChecked: 2026-11-11                # required when the post states health, entry/visa or safety facts
 sources:
-  - url: https://example.gov/page
-    label: "Publisher: page title"
-    accessed: 2026-11-07   # optional
-# guide pages also need:
-section: regions         # regions | planning
-order: 9
-elevation_m: 3640        # optional: marks the altitude rail
-elevation_label: La Paz  # optional
-# Q&A pages also need:
-question: "The question as travellers ask it?"
-short_answer: "Two or three plain sentences. Shown first and used in FAQPage JSON-LD."
-order: 6
+  - url: https://www.gov.uk/foreign-travel-advice/bolivia
+    label: "UK FCDO: Bolivia travel advice"
+    accessed: 2026-11-11
 ---
 ```
 
-3. Quote any value that contains a colon.
-4. Write plain, factual English. No statistics, reviews, quotes or counts without a source.
-5. When an editor has checked every fact against the sources, set `status: reviewed` and update `reviewed`. Pages without sources never publish, even if marked reviewed (the build fails).
-6. Add new facts that need checking to `FACTS-TO-VERIFY.md`.
+Rules: no invented reviews, quotes, people, prices or statistics. Health, visa and safety facts link the official source inline and the post carries `factsChecked`. When you re-check a post, update `updated` (and `factsChecked`).
 
-## Refresh the feed
+## Photos
 
-Company facts come only from the Tourground directory export. Never edit company facts in this repo.
+Only freely licensed Wikimedia Commons photos (CC BY, CC BY-SA, CC0, public domain), no identifiable people, never AI-generated. Add the file to `src/assets/photos/` and a record to `src/data/photos.json` (author, licence, licence URL, source URL, alt text). Astro generates AVIF/WebP at several widths; captions and `/photo-credits/` are generated from the JSON.
 
-```bash
-FEED_URL="https://<directory-export-url>" FEED_TOKEN="<optional>" npm run feed:refresh
-```
+## Newsletter
 
-This writes `data/feed.json` (used in preference to the mock) and prints added and removed companies. Commit it and push; Vercel rebuilds.
-
-- A company removed from the feed, set `removed: true`, or no longer `verified` / `founder_owned`, loses its page in the next build.
-- Ranks are used exactly as given (`rank.BO`, ascending). The site never reorders them.
-- Company counts are computed from the feed at build time.
-
-To refresh on every deploy instead, set `FEED_URL` (and `FEED_TOKEN`) in the Vercel project and change the build command to `npm run feed:refresh && npm run build`.
+No mailing-list provider is connected. Until `newsletter.action` is set in `src/site.config.ts`, the sign-up is an email link to the site address with the subject "Subscribe to Bolivia Unpacked". Set `action` (and `emailField`) to a provider's form endpoint to switch to a real form, and update the Privacy Policy with the provider's name.
 
 ## Deploy
 
-Vercel project settings come from `vercel.json` (build `npm run build`, output `dist`, clean URLs, trailing slashes). Pushing to `main` deploys production. Analytics: Vercel Web Analytics only (enable it in the Vercel project's Analytics tab); no cookies, no other tracking.
-
-## Before launch
-
-- Legal sign-off (US, UK, EU, Brazil) on everything in `disclosure` and `legal` in `src/site.config.ts`, and on the Privacy, Terms and Cookie pages.
-- Confirm the business address and correction URL (both placeholders).
-- Replace the mock feed with the real export.
-- Work through `FACTS-TO-VERIFY.md`.
-
-## Images
-
-None at present (the OG card `public/og-default.png` is generated typography, `scripts/make-og.mjs`). Any image added must be owned or licensed, recorded in `imageCredits` in the config, carry `width` and `height`, be lazy-loaded below the fold, and never show identifiable people.
+`vercel.json` sets the build, clean URLs, trailing slashes, cache headers and 301 redirects from the old reference-site URLs. Pushing to `main` deploys production. Analytics: Vercel Web Analytics only (cookieless).

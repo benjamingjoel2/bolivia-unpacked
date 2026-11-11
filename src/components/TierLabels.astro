@@ -1,8 +1,0 @@
----
-import type { Company } from '../lib/feed';
-import { disclosure } from '../site.config';
-const { c } = Astro.props as { c: Company };
----
-{c.founder_owned && <span class="label founder">{disclosure.founderOwnedLabel}</span>}
-{!c.founder_owned && <span class="label">{disclosure.tierLabels[c.tier] ?? c.tier}</span>}
-{c.example && <span class="label example">Example record</span>}

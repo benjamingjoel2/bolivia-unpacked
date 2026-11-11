@@ -1,0 +1,33 @@
+---
+import Article from '../layouts/Page.astro';
+import { authors } from '../data/authors';
+import { allPosts, postPath } from '../lib/posts';
+import { site } from '../site.config';
+const posts = await allPosts();
+---
+<Article
+  title="Authors"
+  description="Who writes Bolivia Unpacked: the Bolivia Unpacked desk at Tourground, how we work, and the posts each author has written."
+  path="/authors/"
+  published={site.launchDate}
+  reviewed="2026-11-11"
+  kicker="About"
+  pageType="ProfilePage"
+>
+  {authors.map((a) => {
+    const mine = posts.filter((p) => p.data.author === a.id);
+    return (
+      <section id={a.id} class="author">
+        <h2>{a.name}</h2>
+        <p class="muted">{a.role}</p>
+        {a.bio.map((b) => <p>{b}</p>)}
+        {mine.length > 0 && (
+          <>
+            <h3>Posts</h3>
+            <ul>{mine.map((p) => <li><a href={postPath(p)}>{p.data.title}</a></li>)}</ul>
+          </>
+        )}
+      </section>
+    );
+  })}
+</Article>

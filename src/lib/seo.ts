@@ -1,123 +1,83 @@
 import { site, publisher } from '../site.config';
-import type { Company } from './feed';
-import { countryName, outboundLink } from './feed';
 
 export const abs = (p: string) => new URL(p, site.url).toString();
 
 export interface Crumb { name: string; path: string }
 
-export function breadcrumbLd(crumbs: Crumb[]) {
+export const ORG_ID = `${site.url}/#publisher`;
+export const SITE_ID = `${site.url}/#website`;
+
+export function organizationNode() {
   return {
-    '@context': 'https://schema.org',
-    '@type': 'BreadcrumbList',
-    itemListElement: crumbs.map((c, i) => ({
-      '@type': 'ListItem',
-      position: i + 1,
-      name: c.name,
-      item: abs(c.path),
-    })),
+    '@type': 'Organization',
+    '@id': ORG_ID,
+    name: publisher.name,
+    url: publisher.url,
+    email: site.email,
+    logo: { '@type': 'ImageObject', url: abs('/favicon.svg') },
   };
 }
 
-export const publisherLd = () => ({
-  '@type': 'Organization',
-  '@id': `${publisher.url}/#organization`,
-  name: publisher.name,
-  url: publisher.url,
-});
-
-export function websiteLd() {
+export function websiteNode() {
   return {
-    '@context': 'https://schema.org',
     '@type': 'WebSite',
-    '@id': `${site.url}/#website`,
+    '@id': SITE_ID,
     name: site.name,
     url: site.url + '/',
     description: site.positioning,
     inLanguage: site.language,
-    publisher: publisherLd(),
+    publisher: { '@id': ORG_ID },
   };
 }
 
-export function articleLd(opts: { title: string; description: string; path: string; published: string; modified: string; about?: object }) {
+export function breadcrumbNode(crumbs: Crumb[]) {
   return {
-    '@context': 'https://schema.org',
-    '@type': 'Article',
+    '@type': 'BreadcrumbList',
+    itemListElement: crumbs.map((c, i) => ({ '@type': 'ListItem', position: i + 1, name: c.name, item: abs(c.path) })),
+  };
+}
+
+export function webPageNode(opts: { type?: string; path: string; title: string; description: string; image?: string }) {
+  return {
+    '@type': opts.type ?? 'WebPage',
+    '@id': abs(opts.path) + '#webpage',
+    url: abs(opts.path),
+    name: opts.title,
+    description: opts.description,
+    inLanguage: site.language,
+    isPartOf: { '@id': SITE_ID },
+    publisher: { '@id': ORG_ID },
+    ...(opts.image ? { primaryImageOfPage: { '@type': 'ImageObject', url: opts.image } } : {}),
+  };
+}
+
+export function blogPostingNode(opts: {
+  path: string; title: string; description: string; published: string; modified: string;
+  authorName: string; authorPath: string; image: { url: string; width: number; height: number };
+  section: string; keywords: string[]; wordCount: number; citations: string[];
+}) {
+  return {
+    '@type': 'BlogPosting',
+    '@id': abs(opts.path) + '#article',
     headline: opts.title.slice(0, 110),
     description: opts.description,
     url: abs(opts.path),
     mainEntityOfPage: abs(opts.path),
+    image: { '@type': 'ImageObject', url: opts.image.url, width: opts.image.width, height: opts.image.height },
     datePublished: opts.published,
     dateModified: opts.modified,
     inLanguage: site.language,
-    author: publisherLd(),
-    publisher: { ...publisherLd(), logo: { '@type': 'ImageObject', url: abs('/og-default.png') } },
-    image: abs('/og-default.png'),
-    isPartOf: { '@id': `${site.url}/#website` },
-    ...(opts.about ? { about: opts.about } : {}),
+    author: { '@type': 'Organization', name: opts.authorName, url: abs(opts.authorPath), parentOrganization: { '@id': ORG_ID } },
+    publisher: { '@id': ORG_ID },
+    isPartOf: { '@id': SITE_ID },
+    articleSection: opts.section,
+    keywords: opts.keywords.join(', '),
+    wordCount: opts.wordCount,
+    ...(opts.citations.length ? { citation: opts.citations } : {}),
   };
 }
 
-export function destinationLd() {
-  return {
-    '@context': 'https://schema.org',
-    '@type': ['TouristDestination', 'Country'],
-    '@id': `${site.url}/#bolivia`,
-    name: 'Bolivia',
-    alternateName: 'Plurinational State of Bolivia',
-    url: abs('/guide/'),
-    sameAs: ['https://www.wikidata.org/wiki/Q750'],
-    containsPlace: [
-      { '@type': 'Place', name: 'La Paz' },
-      { '@type': 'Place', name: 'Lake Titicaca' },
-      { '@type': 'Place', name: 'Salar de Uyuni' },
-      { '@type': 'Place', name: 'Potosí' },
-      { '@type': 'Place', name: 'Sucre' },
-      { '@type': 'Place', name: 'Cordillera Real' },
-      { '@type': 'Place', name: 'Yungas' },
-      { '@type': 'Place', name: 'Rurrenabaque' },
-      { '@type': 'Place', name: 'Santa Cruz de la Sierra' },
-    ],
-  };
-}
-
-export function companyLd(c: Company, path: string) {
-  const link = outboundLink(c);
-  return {
-    '@context': 'https://schema.org',
-    '@type': 'TravelAgency',
-    '@id': abs(path) + '#company',
-    name: c.name,
-    description: c.summary,
-    url: abs(path),
-    sameAs: [c.profile_url, ...(link.paid ? [link.href] : [])],
-    address: { '@type': 'PostalAddress', addressCountry: c.country_base },
-    areaServed: c.delivers_in.map((code) => ({ '@type': 'Country', name: countryName(code) })),
-    ...(c.memberships && c.memberships.length ? { memberOf: c.memberships.map((m) => ({ '@type': 'Organization', name: m })) } : {}),
-    ...(c.founder_owned ? { parentOrganization: { '@type': 'Organization', name: publisher.founderGroup } } : {}),
-  };
-}
-
-export function itemListLd(name: string, path: string, items: { name: string; path: string }[]) {
-  return {
-    '@context': 'https://schema.org',
-    '@type': 'ItemList',
-    name,
-    url: abs(path),
-    itemListOrder: 'https://schema.org/ItemListOrderAscending',
-    numberOfItems: items.length,
-    itemListElement: items.map((it, i) => ({ '@type': 'ListItem', position: i + 1, name: it.name, url: abs(it.path) })),
-  };
-}
-
-export function faqLd(items: { q: string; a: string }[]) {
-  return {
-    '@context': 'https://schema.org',
-    '@type': 'FAQPage',
-    mainEntity: items.map((it) => ({
-      '@type': 'Question',
-      name: it.q,
-      acceptedAnswer: { '@type': 'Answer', text: it.a },
-    })),
-  };
+/** Wrap nodes in one @graph. Organization and WebSite are always included. */
+export function graph(nodes: object[]) {
+  return { '@context': 'https://schema.org', '@graph': [organizationNode(), websiteNode(), ...nodes] };
 }

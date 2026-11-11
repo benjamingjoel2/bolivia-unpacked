@@ -1,0 +1,21 @@
+---
+import Figure from './Figure.astro';
+import { postPath, readingMinutes, humanDate, iso, type Post } from '../lib/posts';
+import { categoryBySlug, categoryPath } from '../data/taxonomy';
+interface Props { post: Post; size?: 'lead' | 'md' | 'sm'; eager?: boolean; headingLevel?: 2 | 3 }
+const { post, size = 'md', eager = false, headingLevel = 3 } = Astro.props;
+const cat = categoryBySlug(post.data.categories[0])!;
+const H = `h${headingLevel}`;
+const sizes = size === 'lead' ? '(min-width: 960px) 60vw, 100vw' : size === 'md' ? '(min-width: 960px) 30vw, (min-width: 640px) 45vw, 100vw' : '(min-width: 640px) 160px, 100px';
+---
+<article class:list={['card', `card-${size}`]}>
+  <a class="card-photo" href={postPath(post)} tabindex="-1" aria-hidden="true">
+    <Figure key={post.data.hero} alt="" caption={false} eager={eager} sizes={sizes} widths={size === 'sm' ? [240, 400] : [480, 800, 1200]} />
+  </a>
+  <div class="card-body">
+    <p class="card-cat"><a href={categoryPath(cat.slug)}>{cat.name}</a></p>
+    <H class="card-title"><a href={postPath(post)}>{post.data.title}</a></H>
+    {size !== 'sm' && <p class="card-desc">{post.data.description}</p>}
+    <p class="card-meta"><time datetime={iso(post.data.published)}>{humanDate(post.data.published)}</time> · {readingMinutes(post)} min read</p>
+  </div>
+</article>

@@ -1,0 +1,27 @@
+---
+/** "Plan this trip" box at the end of every post. Operators come only from the Tourground directory feed. */
+import { getOperator } from '../lib/feed';
+import { disclosure, publisher } from '../site.config';
+interface Props { operatorId?: string | null; note?: string }
+const { operatorId, note } = Astro.props;
+const op = getOperator(operatorId ?? 'altiplano-journeys');
+---
+<aside class="plan" aria-labelledby="plan-h">
+  <h2 id="plan-h">Plan this trip</h2>
+  {note && <p>{note}</p>}
+  {op ? (
+    <div class="plan-op">
+      <p class="plan-name"><a href={op.profile_url}>{op.name}</a></p>
+      <p class="plan-labels">
+        <span class="label">Verified on Tourground</span>
+        {op.founder_owned && <span class="label founder">{disclosure.founderOwnedLabel}</span>}
+      </p>
+      <p>{op.name} plans private, altitude-aware trips in Bolivia and is listed in the Tourground directory. Tell them your dates and what you want to see, and ask for a night-by-night plan.</p>
+      <p><a class="button" href={op.profile_url}>Contact {op.name} on Tourground</a></p>
+      {op.founder_owned && <p class="small">{disclosure.founderOwnedExplainer} <a href="/disclosure/">Read our disclosure</a>.</p>}
+    </div>
+  ) : (
+    <p>Find a verified local operator for this trip in the <a href={publisher.directoryUrl}>Tourground directory</a>.</p>
+  )}
+  <p class="small">Prefer to compare? Browse other verified operators in the <a href={publisher.directoryUrl}>Tourground directory</a>. {disclosure.planBoxNote}</p>
+</aside>

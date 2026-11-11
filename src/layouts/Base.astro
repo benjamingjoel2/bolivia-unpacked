@@ -1,23 +1,36 @@
 ---
+import '@fontsource/newsreader/latin-500.css';
+import '@fontsource/newsreader/latin-600.css';
+import '@fontsource/source-sans-3/latin-400.css';
+import '@fontsource/source-sans-3/latin-400-italic.css';
+import '@fontsource/source-sans-3/latin-600.css';
 import '../styles/global.css';
 import Analytics from '@vercel/analytics/astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
 import { site, analytics } from '../site.config';
-import { abs, websiteLd } from '../lib/seo';
+import { abs, graph, breadcrumbNode, webPageNode, type Crumb } from '../lib/seo';
 
 interface Props {
   title: string;
   description: string;
   path: string;
-  jsonld?: object[];
+  crumbs?: Crumb[];
+  /** Extra JSON-LD nodes (Organization, WebSite and BreadcrumbList are always added). */
+  nodes?: object[];
+  /** Page node type when no BlogPosting is given: WebPage, AboutPage, CollectionPage... */
+  pageType?: string;
   noindex?: boolean;
   ogType?: 'website' | 'article';
+  ogImage?: { url: string; width: number; height: number; alt: string };
+  showCrumbs?: boolean;
 }
-const { title, description, path, jsonld = [], noindex = false, ogType = 'article' } = Astro.props;
+const { title, description, path, crumbs = [{ name: 'Home', path: '/' }], nodes, pageType = 'WebPage', noindex = false, ogType = 'website', ogImage, showCrumbs = true } = Astro.props;
 const fullTitle = path === '/' ? `${site.name}: ${site.tagline}` : `${title} | ${site.name}`;
 const canonical = abs(path);
-const ld = [websiteLd(), ...jsonld];
+const img = ogImage ?? { url: abs('/og-default.png'), width: 1200, height: 630, alt: `${site.name}: ${site.tagline}` };
+const ld = graph([...(nodes ?? [webPageNode({ type: pageType, path, title, description })]), breadcrumbNode(crumbs)]);
 ---
 <!doctype html>
 <html lang={site.language}>
@@ -28,12 +41,9 @@ const ld = [websiteLd(), ...jsonld];
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
     {noindex && <meta name="robots" content="noindex, follow" />}
-    <link rel="preload" href="/fonts/bitter-400.woff2" as="font" type="font/woff2" crossorigin />
-    <link rel="preload" href="/fonts/archivo-narrow-700.woff2" as="font" type="font/woff2" crossorigin />
-    <link rel="preload" href="/fonts/archivo-narrow-600.woff2" as="font" type="font/woff2" crossorigin />
-    <link rel="preload" href="/fonts/bitter-700.woff2" as="font" type="font/woff2" crossorigin />
-    <meta name="theme-color" content="#14254a" />
+    <meta name="theme-color" content="#f7f4ee" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="alternate" type="application/rss+xml" title={`${site.name} RSS feed`} href="/rss.xml" />
     <link rel="alternate" type="text/plain" href="/llms.txt" title="llms.txt" />
     <meta property="og:site_name" content={site.name} />
     <meta property="og:type" content={ogType} />
@@ -41,20 +51,20 @@ const ld = [websiteLd(), ...jsonld];
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
     <meta property="og:locale" content={site.locale} />
-    <meta property="og:image" content={abs('/og-default.png')} />
-    <meta property="og:image:width" content="1200" />
-    <meta property="og:image:height" content="630" />
-    <meta property="og:image:alt" content={`${site.name}: ${site.tagline}`} />
+    <meta property="og:image" content={img.url} />
+    <meta property="og:image:width" content={String(img.width)} />
+    <meta property="og:image:height" content={String(img.height)} />
+    <meta property="og:image:alt" content={img.alt} />
     <meta name="twitter:card" content="summary_large_image" />
-    {ld.map((obj) => <script type="application/ld+json" set:html={JSON.stringify(obj)} />)}
+    <slot name="head" />
+    <script type="application/ld+json" set:html={JSON.stringify(ld)} />
   </head>
   <body>
     <a class="skip" href="#main">Skip to content</a>
     <Header path={path} />
-    <main id="main">
-      <div class="wrap">
-        <slot />
-      </div>
+    <main id="main" tabindex="-1">
+      {showCrumbs && crumbs.length > 1 && <div class="wrap"><Breadcrumbs crumbs={crumbs} /></div>}
+      <slot />
     </main>
     <Footer />
     {analytics.vercelWebAnalytics && <Analytics />}

@@ -1,5 +1,5 @@
 ---
-import Article from '../layouts/Article.astro';
+import Article from '../layouts/Page.astro';
 import { site, publisher, legal } from '../site.config';
 const a = publisher.address;
 const addr = a.placeholder ? `${a.locality}, ${a.country}` : [a.venue, a.street, a.locality, a.postalCode, a.country].filter(Boolean).join(', ');
@@ -25,6 +25,7 @@ const addr = a.placeholder ? `${a.locality}, ${a.country}` : [a.venue, a.street,
     <li>We do not use cookies, advertising trackers or social media plugins.</li>
     <li>We measure visits with Vercel Web Analytics, which does not use cookies and does not identify you.</li>
     <li>If you email us, we use your email only to deal with your message.</li>
+    <li>If you subscribe to the newsletter, we use your email only to send it, and you can unsubscribe at any time.</li>
     <li>We do not sell or share personal data for advertising.</li>
   </ul>
 
@@ -41,14 +42,18 @@ const addr = a.placeholder ? `${a.locality}, ${a.country}` : [a.venue, a.street,
   <p>If you email {site.email}, we receive your email address, name if given, and whatever you write. We use it only to answer you and, for corrections, to check and fix the page.</p>
   <p><strong>Legal basis:</strong> legitimate interest in answering enquiries and keeping the site accurate. If you are a company asking about your listing, it may also be steps taken at your request.</p>
 
-  <h3>4. Correction and removal requests</h3>
-  <p>The "Request a correction or removal" link takes you to the main Tourground website. Data you give there is handled under Tourground's own privacy policy on that site.</p>
+  <h3>4. Newsletter</h3>
+  <p>If you ask to subscribe to the {site.name} newsletter, we keep your email address to send you new posts. You can unsubscribe at any time by replying "unsubscribe" or using the link in any newsletter, and we will delete your address from the list.</p>
+  <p><strong>Legal basis:</strong> your consent (UK GDPR and EU GDPR Article 6(1)(a); Brazil LGPD Article 7, I), which you can withdraw at any time.</p>
+
+  <h3>5. Correction requests</h3>
+  <p>Correction links to the main Tourground website take you off this site. Data you give there is handled under Tourground's own privacy policy on that site.</p>
 
   <h2>What we do not do</h2>
   <p>We do not use cookies or similar technologies such as local storage for tracking. We do not run advertising networks, do not build profiles, do not make automated decisions with legal effects, and do not sell personal data or share it for cross-context behavioural advertising.</p>
 
   <h2>Who processes your data</h2>
-  <p>Vercel Inc. hosts the site and provides Web Analytics, acting as our processor. Our email provider processes emails sent to us. We do not give your data to tour operators. If you contact an operator through a link on this site, that is between you and them, under their policy.</p>
+  <p>Vercel Inc. hosts the site and provides Web Analytics, acting as our processor. Our email provider processes emails sent to us and, if you subscribe, the newsletter list. We do not give your data to tour operators. If you contact an operator through a link on this site, that is between you and them, under their policy.</p>
 
   <h2>International transfers</h2>
   <p>Vercel is based in the United States and may process data in the United States and other countries. Where UK, EU or Brazilian law requires it, transfers rely on an adequacy decision, such as the EU–US Data Privacy Framework and its UK extension, or on standard contractual clauses.</p>
@@ -57,6 +62,7 @@ const addr = a.placeholder ? `${a.locality}, ${a.country}` : [a.venue, a.street,
   <ul>
     <li>Analytics: aggregated statistics only. The visitor hash is discarded after 24 hours.</li>
     <li>Hosting logs: kept by Vercel for a short period under its own retention settings.</li>
+    <li>Newsletter: kept until you unsubscribe.</li>
     <li>Emails: kept while we deal with your message and then for up to two years, so we have a record of corrections, then deleted.</li>
   </ul>
 
@@ -67,7 +73,7 @@ const addr = a.placeholder ? `${a.locality}, ${a.country}` : [a.venue, a.street,
   <p>To use any of these rights, email <a href={`mailto:${site.email}`}>{site.email}</a>. We will reply within one month, or the shorter period your law requires. We may need to confirm your identity.</p>
 
   <h2>Children</h2>
-  <p>The site is a travel reference for adults. It is not directed at children, and we do not knowingly collect data from children.</p>
+  <p>The site is a travel blog for adults. It is not directed at children, and we do not knowingly collect data from children.</p>
 
   <h2>Changes</h2>
   <p>If we change how we handle personal data, we will update this page and its effective date. Material changes will be noted at the top of the page.</p>

@@ -11,20 +11,20 @@
 
 export const site = {
   name: 'Bolivia Unpacked',
-  tagline: 'The plain-English reference for planning Bolivia',
+  tagline: 'Travel stories and practical planning for Bolivia',
   positioning:
-    'The plain-English reference for planning Bolivia: altitude, the salt flats, the Andes and the Amazon, and the verified operators who make it easy.',
+    'Story-led, practical travel writing for people planning a trip to Bolivia: the salt flats, La Paz, Lake Titicaca, the colonial south and the Amazon, with every trip linked to a verified local operator.',
   domain: 'boliviaunpacked.tourground.com',
   url: 'https://boliviaunpacked.tourground.com',
   language: 'en',
   locale: 'en_GB',
   /** The only email address used anywhere on the site. */
   email: 'boliviaunpacked@tourground.com',
-  editorLine: 'Edited by the Tourground publishing desk for Bolivia.',
+  editorLine: 'Written and edited by the Bolivia Unpacked desk at Tourground.',
   /** Launch / first-publication date of the site (ISO). Used as the published date for feed-driven pages. */
   launchDate: '2026-11-07',
-  /** Accent colour (lagoon flamingo pink). Also update --accent in src/styles/global.css if changed. */
-  accentColour: '#D94F7E',
+  /** Accent colour (Andean terracotta). Also update --terracotta in src/styles/global.css if changed. */
+  accentColour: '#B5502F',
   /** Destination country code used for ranks in the feed (rank.BO). */
   countryCode: 'BO',
   destinationSlug: 'bolivia',
@@ -56,6 +56,19 @@ export const publisher = {
    * PLACEHOLDER URL until the main site's flow exists (see FACTS-TO-VERIFY.md).
    */
   correctionUrl: 'https://tourground.com/contact?topic=booster-correction&site=boliviaunpacked',
+  /** Where "browse verified operators" points. PLACEHOLDER until a Bolivia-filtered directory URL exists. */
+  directoryUrl: 'https://tourground.com/',
+};
+
+/**
+ * Newsletter. No mailing-list provider is connected yet.
+ * While `action` is empty the sign-up form is replaced by an email link (subject "Subscribe").
+ * To switch on a real form, set `action` to the provider's form POST URL and `emailField` to its email field name.
+ */
+export const newsletter = {
+  action: '',
+  emailField: 'email',
+  pitch: 'One email when we publish something new: trip stories, seasonal notes and planning advice for Bolivia. No spam, unsubscribe any time.',
 };
 
 /**
@@ -65,7 +78,9 @@ export const publisher = {
 export const disclosure = {
   footerPublishedBy: 'Published by Tourground.',
   footerShort:
-    'Bolivia Unpacked is an independent reference published by Tourground. Rankings come only from the Tourground directory and are never paid for.',
+    'Bolivia Unpacked is a travel blog published by Tourground. Every trip links to a verified operator in the Tourground directory. Paid placements are always labelled “Advertisement feature”.',
+  planBoxNote:
+    'Operators are listed through the Tourground directory, which publishes only verified companies. Tourground earns money when travellers book through its platform.',
   founderOwnedLabel: 'Founder-owned (Tourground Geotrax)',
   founderOwnedExplainer:
     'This brand is owned by the founders of Tourground, the publisher of this site. It is ranked by the same rules as every other company and gets no preferential position.',
@@ -82,12 +97,12 @@ export const disclosure = {
     'Example record. This is not a real company. It exists only to test the site templates and is never published on the live site.',
   /** Full text of the Publisher disclosure page. Paragraphs. */
   publisherDisclosure: [
-    'Bolivia Unpacked is published by Tourground, which runs a directory and booking platform for tour operators and travel agencies. This site exists to help travellers plan Bolivia and to point them to verified companies listed on Tourground.',
-    'Tourground has a commercial interest in travellers booking with companies on its platform. Links from company pages lead to those companies’ Tourground profile pages.',
-    'Some brands are owned by Tourground’s founders through Tourground Geotrax. For Bolivia this is Altiplano Journeys. Wherever a founder-owned brand appears it carries the label “Founder-owned (Tourground Geotrax)”. It follows the same ranking rules as every other company.',
-    'Ranks are taken unchanged from the Tourground directory export. Nobody can pay to change a rank. Companies on the Platinum tier may link to their own website; those links are marked rel="sponsored nofollow". All other companies link only to their Tourground profile.',
-    'Paid placements, when they exist, are labelled “Advertisement feature”, appear at the top of a page and are visually separated from the rankings. At the time of writing there are no paid placements on this site.',
-    'Guide and question pages are written by the Tourground publishing desk for Bolivia. No company pays for or reviews them before publication.',
+    'Bolivia Unpacked is a travel blog published by Tourground, which runs a directory and booking platform for tour operators and travel agencies. The blog exists to help travellers plan Bolivia and to point them to verified local companies listed on Tourground.',
+    'Tourground has a commercial interest in travellers booking with companies on its platform. Every post ends with a “Plan this trip” box that links to an operator’s page on Tourground.',
+    'Some brands are owned by Tourground’s founders through Tourground Geotrax. For Bolivia this is Altiplano Journeys. Wherever Altiplano Journeys is recommended it carries the label “Founder-owned (Tourground Geotrax)”, so you can weigh the recommendation knowing that relationship.',
+    'Operators shown on this site come only from the Tourground directory, which publishes companies it has verified. Nobody pays for a recommendation inside a post.',
+    'Paid placements, when they exist, are labelled “Advertisement feature” and are visually separated from editorial content. Links in them are marked rel="sponsored nofollow". At the time of writing there are no paid placements on this site.',
+    'Posts are written by the Bolivia Unpacked desk. No company pays for, writes or reviews a post before publication.',
   ],
   /** Tier names as shown to readers. */
   tierLabels: {
@@ -123,13 +138,7 @@ export const paidPlacements: Array<{
 }> = [];
 
 /**
- * Image credits. Every image used on the site must have an entry.
- * Unsplash images are allowed without a credit line on the site, but record them here.
+ * Image credits live in src/data/photos.json (one record per photograph: author, licence, source).
+ * The /photo-credits/ page and every photo caption are generated from that file.
+ * Only freely licensed photographs (Wikimedia Commons, CC BY / CC BY-SA / CC0 / public domain) with no identifiable people.
  */
-export const imageCredits: Array<{ file: string; owner: string; licence: string; note?: string }> = [
-  {
-    file: 'public/og-default.png',
-    owner: 'Tourground',
-    licence: 'Owned (generated typographic card, no photography)',
-  },
-];

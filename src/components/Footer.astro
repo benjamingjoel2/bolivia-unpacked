@@ -1,32 +1,37 @@
 ---
 import { site, publisher, disclosure } from '../site.config';
-import AguayoDivider from './AguayoDivider.astro';
-const a = publisher.address;
-const addressLine = a.placeholder
-  ? `${a.locality}, ${a.country} (street address pending confirmation)`
-  : [a.venue, a.street, a.locality, a.postalCode, a.country].filter(Boolean).join(', ');
+import { categories, categoryPath } from '../data/taxonomy';
+const year = new Date().getUTCFullYear();
 ---
 <footer class="site-footer">
-  <AguayoDivider />
   <div class="wrap cols">
     <div>
+      <p class="f-name">{site.name}</p>
       <p class="published"><a href={publisher.url}>{disclosure.footerPublishedBy}</a></p>
       <p>{disclosure.footerShort}</p>
-      <p class="small">{site.editorLine}</p>
+      <p><a href={`mailto:${site.email}`}>{site.email}</a></p>
+    </div>
+    <div>
+      <h2 class="f-h">Read</h2>
       <ul>
-        <li><a href="/about/">About</a></li>
-        <li><a href="/how-we-rank/">How we rank</a></li>
-        <li><a href="/disclosure/">Publisher disclosure</a></li>
-        <li><a href="/corrections/">Corrections and removal</a></li>
-        <li><a href="/privacy/">Privacy Policy</a></li>
-        <li><a href="/terms/">Terms</a></li>
-        <li><a href="/cookies/">Cookie Policy</a></li>
+        <li><a href="/blog/">All posts</a></li>
+        {categories.map((c) => <li><a href={categoryPath(c.slug)}>{c.name}</a></li>)}
+        <li><a href="/rss.xml">RSS feed</a></li>
       </ul>
     </div>
     <div>
-      <p><strong>Contact</strong><br /><a href={`mailto:${site.email}`}>{site.email}</a></p>
-      <p><strong>Publishing desk</strong><br />{addressLine}</p>
-      <p class="small">{site.domain}</p>
+      <h2 class="f-h">About</h2>
+      <ul>
+        <li><a href="/about/">About</a></li>
+        <li><a href="/authors/">Authors</a></li>
+        <li><a href="/disclosure/">Disclosure</a></li>
+        <li><a href="/corrections/">Corrections</a></li>
+        <li><a href="/photo-credits/">Photo credits</a></li>
+        <li><a href="/privacy/">Privacy</a></li>
+        <li><a href="/cookies/">Cookies</a></li>
+        <li><a href="/terms/">Terms</a></li>
+      </ul>
     </div>
   </div>
+  <div class="wrap legal-line"><p>© {year} Tourground · {site.domain}</p></div>
 </footer>

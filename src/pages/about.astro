@@ -1,36 +1,35 @@
 ---
-import Article from '../layouts/Article.astro';
+import Article from '../layouts/Page.astro';
 import { site, publisher, disclosure } from '../site.config';
-import { publishedCompanies } from '../lib/feed';
-const n = publishedCompanies().length;
 ---
 <Article
   title="About Bolivia Unpacked"
-  description="What Bolivia Unpacked is, who publishes it, how pages are written and checked, and how to contact the editors."
+  description="What Bolivia Unpacked is, who publishes it, how posts are written and sourced, and how we point readers to verified local operators."
   path="/about/"
-  crumbs={[{ name: 'Home', path: '/' }, { name: 'About', path: '/about/' }]}
   published={site.launchDate}
-  reviewed={site.launchDate}
-  sources={[]}
-  rail={false}
+  reviewed="2026-11-11"
   kicker="About"
   lede={site.positioning}
+  pageType="AboutPage"
 >
-  <h2>What this site is</h2>
-  <p>{site.name} is a small, independent reference site about planning travel in Bolivia. It covers the regions, the seasons, altitude, transport and routes, and lists verified tour operators for the country.</p>
-  <h2>Who publishes it</h2>
-  <p>It is published by <a href={publisher.url}>Tourground</a>, a directory and booking platform for tour operators and travel agencies. {site.editorLine} Read the full <a href="/disclosure/">publisher disclosure</a>.</p>
-  <h2>How pages are written</h2>
+  <h2>What this blog is</h2>
+  <p>{site.name} is a travel blog for people planning a trip to Bolivia. Each post starts with a place or a moment on the road and then gets practical: when to go, how to pace the altitude, how long things take, and what to ask before you book.</p>
+  <h2>Published by Tourground</h2>
+  <p>{site.name} is published by <a href={publisher.url}>Tourground</a>, a directory and booking platform for tour operators and travel agencies. {site.editorLine} Read the full <a href="/disclosure/">disclosure</a>.</p>
+  <h2>How we write</h2>
   <ul>
-    <li>Guide and question pages are written in plain English, as reference, not marketing.</li>
-    <li>Every factual page lists its sources and shows when it was published and last reviewed.</li>
-    <li>Only pages an editor has marked as reviewed are published. Pages without sources are never published.</li>
-    <li>We do not publish statistics, reviews, quotes or counts we cannot source. Counts of companies are computed from the directory feed.</li>
+    <li><strong>Sourced.</strong> Facts are linked to their source, and each post lists its sources at the end. We prefer official sources: government travel advice, health services, UNESCO and Bolivia’s own institutions.</li>
+    <li><strong>Dated.</strong> Every post shows when it was published and last updated. Health, entry and safety details link to the official source and show the date we last checked them.</li>
+    <li><strong>Nothing invented.</strong> We do not publish made-up reviews, quotes, prices or statistics. If we cannot source something, we leave it out.</li>
+    <li><strong>Honest bylines.</strong> Posts are credited to the Bolivia Unpacked desk. See <a href="/authors/">authors</a>.</li>
   </ul>
-  <h2>Company listings</h2>
-  <p>{disclosure.verifiedOnlyStatement} The site currently lists {n} {n === 1 ? 'company' : 'companies'}. {disclosure.rankingStatement} See <a href="/how-we-rank/">how we rank</a>.</p>
+  <h2>Plan this trip</h2>
+  <p>Every post ends by pointing you to a verified local operator through the Tourground directory, often Altiplano Journeys. Altiplano Journeys is owned by Tourground’s founders, and it is labelled “{disclosure.founderOwnedLabel}” wherever we recommend it.</p>
+  <h2>Advertising</h2>
+  <p>{disclosure.paidExplainer} They are labelled “{disclosure.paidLabel}”. There are none on the site at the moment.</p>
   <h2>Photographs</h2>
-  <p>The site uses no photographs at present. Any image we add will be one we own or are licensed to use, and will never show identifiable people.</p>
+  <p>Our photographs are freely licensed images from Wikimedia Commons, credited under each photo and on the <a href="/photo-credits/">photo credits</a> page. We do not use AI-generated images or photos of identifiable people.</p>
   <h2>Contact</h2>
-  <p>Email <a href={`mailto:${site.email}`}>{site.email}</a>. To correct or remove a company listing, use the <a href="/corrections/">corrections and removal</a> process.</p>
+  <p>Email <a href={`mailto:${site.email}`}>{site.email}</a>. To report a mistake, see <a href="/corrections/">corrections</a>.</p>
+  <p><strong>{disclosure.footerPublishedBy}</strong></p>
 </Article>

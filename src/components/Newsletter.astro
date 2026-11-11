@@ -1,0 +1,24 @@
+---
+import { site, newsletter } from '../site.config';
+const { id = 'newsletter' } = Astro.props as { id?: string };
+const mailto = `mailto:${site.email}?subject=${encodeURIComponent('Subscribe to Bolivia Unpacked')}&body=${encodeURIComponent('Please add me to the Bolivia Unpacked newsletter.')}`;
+---
+<section class="newsletter" aria-labelledby={`${id}-h`}>
+  <h2 id={`${id}-h`}>Get new posts by email</h2>
+  <p>{newsletter.pitch}</p>
+  {newsletter.action ? (
+    <form action={newsletter.action} method="post" class="nl-form">
+      <label for={`${id}-email`}>Email address</label>
+      <div class="nl-row">
+        <input id={`${id}-email`} name={newsletter.emailField} type="email" autocomplete="email" required />
+        <button type="submit">Subscribe</button>
+      </div>
+      <p class="small">We use your email only to send the newsletter. See our <a href="/privacy/">privacy policy</a>.</p>
+    </form>
+  ) : (
+    <>
+      <p><a class="button" href={mailto}>Subscribe by email</a></p>
+      <p class="small">This opens an email to {site.email}. We use your address only to send the newsletter; see our <a href="/privacy/">privacy policy</a>.</p>
+    </>
+  )}
+</section>

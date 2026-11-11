@@ -1,24 +1,18 @@
 ---
 import { site } from '../site.config';
+import { categories, categoryPath } from '../data/taxonomy';
 const { path } = Astro.props as { path: string };
-const nav = [
-  { href: '/guide/', label: 'Guide' },
-  { href: '/altitude/', label: 'Altitude ladder' },
-  { href: '/salt-flats-by-month/', label: 'Salt flats by month' },
-  { href: '/operators/', label: 'Operators' },
-  { href: '/questions/', label: 'Questions' },
-  { href: '/compare/', label: 'Compare' },
-];
-const current = (href: string) => path === href || (href !== '/' && path.startsWith(href));
+const nav = [...categories.map((c) => ({ href: categoryPath(c.slug), label: c.name })), { href: '/about/', label: 'About' }];
+const current = (href: string) => path === href || path.startsWith(href) || (href === '/destinations/' && path.startsWith('/destinations/'));
 ---
 <header class="site-header">
-  <div class="aguayo thin" aria-hidden="true"></div>
-  <div class="wrap">
-    <a class="wordmark" href="/" aria-label={`${site.name} home`}>Bolivia <span>Unpacked</span></a>
-    <nav class="site-nav" aria-label="Main">
-      <ul>
-        {nav.map((n) => <li><a href={n.href} aria-current={current(n.href) ? 'page' : undefined}>{n.label}</a></li>)}
-      </ul>
-    </nav>
+  <div class="wrap head-row">
+    <a class="wordmark" href="/">{site.name}</a>
+    <p class="by">A Tourground travel blog</p>
   </div>
+  <nav class="site-nav" aria-label="Main">
+    <ul class="wrap">
+      {nav.map((n) => <li><a href={n.href} aria-current={current(n.href) ? 'page' : undefined}>{n.label}</a></li>)}
+    </ul>
+  </nav>
 </header>

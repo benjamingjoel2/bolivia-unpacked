@@ -1,0 +1,37 @@
+---
+/** Layout for standing pages (about, legal, credits). */
+import Base from './Base.astro';
+import Sources from '../components/Sources.astro';
+import { humanDate } from '../lib/posts';
+import { site } from '../site.config';
+import type { Crumb } from '../lib/seo';
+interface Props {
+  title: string; description: string; path: string; crumbs?: Crumb[];
+  published?: string; reviewed?: string; reviewedLabel?: string;
+  sources?: { url: string; label: string; accessed?: string }[];
+  kicker?: string; lede?: string; pageType?: string; rail?: boolean; article?: boolean;
+}
+const { title, description, path, crumbs, published, reviewed, reviewedLabel = 'Last updated', sources = [], kicker, lede, pageType = 'WebPage' } = Astro.props;
+---
+<Base title={title} description={description} path={path} crumbs={crumbs ?? [{ name: 'Home', path: '/' }, { name: title, path }]} pageType={pageType}>
+  <div class="wrap">
+    <article class="page-article">
+      <header class="page-head">
+        {kicker && <p class="kicker">{kicker}</p>}
+        <h1>{title}</h1>
+        {lede && <p class="dek">{lede}</p>}
+        {(published || reviewed) && (
+          <p class="byline">
+            {published && <>Published <time datetime={published}>{humanDate(published)}</time></>}
+            {published && reviewed && <span aria-hidden="true"> · </span>}
+            {reviewed && <>{reviewedLabel} <time datetime={reviewed}>{humanDate(reviewed)}</time></>}
+          </p>
+        )}
+      </header>
+      <div class="prose">
+        <slot />
+      </div>
+      {sources.length > 0 && <Sources sources={sources} />}
+    </article>
+  </div>
+</Base>

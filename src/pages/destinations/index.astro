@@ -1,0 +1,34 @@
+---
+import Base from '../../layouts/Base.astro';
+import Figure from '../../components/Figure.astro';
+import { allPosts } from '../../lib/posts';
+import { destinations, destinationPath, categoryBySlug } from '../../data/taxonomy';
+import { abs, webPageNode } from '../../lib/seo';
+import { hasPhoto } from '../../lib/photos';
+const cat = categoryBySlug('destinations')!;
+const posts = await allPosts();
+const count = (slug: string) => posts.filter((p) => p.data.destinations.includes(slug as any)).length;
+const nodes = [
+  webPageNode({ type: 'CollectionPage', path: '/destinations/', title: cat.name, description: cat.description }),
+  { '@type': 'ItemList', itemListElement: destinations.map((d, i) => ({ '@type': 'ListItem', position: i + 1, url: abs(destinationPath(d.slug)), name: d.name })) },
+];
+---
+<Base title={cat.name} description={cat.description} path="/destinations/" crumbs={[{ name: 'Home', path: '/' }, { name: cat.name, path: '/destinations/' }]} nodes={nodes}>
+  <div class="wrap">
+    <header class="page-head">
+      <p class="kicker">Category</p>
+      <h1>{cat.name}</h1>
+      <p class="dek">{cat.description}</p>
+    </header>
+    <ul class="dest-grid">
+      {destinations.map((d, i) => (
+        <li class="dest">
+          {hasPhoto(d.photo) && <a href={destinationPath(d.slug)} tabindex="-1" aria-hidden="true"><Figure key={d.photo} alt="" caption={false} eager={i < 2} sizes="(min-width: 960px) 30vw, (min-width: 640px) 45vw, 100vw" widths={[480, 800]} /></a>}
+          <h2><a href={destinationPath(d.slug)}>{d.name}</a></h2>
+          <p>{d.description}</p>
+          <p class="card-meta">{count(d.slug)} {count(d.slug) === 1 ? 'post' : 'posts'}</p>
+        </li>
+      ))}
+    </ul>
+  </div>
+</Base>

@@ -1,0 +1,40 @@
+---
+import Base from '../../layouts/Base.astro';
+import PostCard from '../../components/PostCard.astro';
+import { allPosts, postPath, type Post } from '../../lib/posts';
+import { destinations, destinationPath, type DestinationTopic } from '../../data/taxonomy';
+import { abs, webPageNode } from '../../lib/seo';
+
+export async function getStaticPaths() {
+  const posts = await allPosts();
+  return destinations.map((d) => {
+    const main = posts.filter((p) => p.data.destinations[0] === d.slug || (p.data.categories[0] === 'destinations' && p.data.destinations.includes(d.slug as any)));
+    const also = posts.filter((p) => p.data.destinations.includes(d.slug as any) && !main.includes(p));
+    return { params: { slug: d.slug }, props: { dest: d, main, also } };
+  });
+}
+const { dest, main, also } = Astro.props as { dest: DestinationTopic; main: Post[]; also: Post[] };
+const path = destinationPath(dest.slug);
+const all = [...main, ...also];
+const nodes = [
+  webPageNode({ type: 'CollectionPage', path, title: dest.name, description: dest.description }),
+  { '@type': 'ItemList', itemListElement: all.map((p, i) => ({ '@type': 'ListItem', position: i + 1, url: abs(postPath(p)), name: p.data.title })) },
+];
+---
+<Base title={`${dest.name}: travel stories and tips`} description={dest.description} path={path} crumbs={[{ name: 'Home', path: '/' }, { name: 'Destinations', path: '/destinations/' }, { name: dest.name, path }]} nodes={nodes}>
+  <div class="wrap">
+    <header class="page-head">
+      <p class="kicker"><a href="/destinations/">Destinations</a></p>
+      <h1>{dest.name}</h1>
+      <p class="dek">{dest.description}</p>
+    </header>
+    {main.length > 0 && <div class="grid-3">{main.map((p, i) => <PostCard post={p} eager={i < 3} headingLevel={2} />)}</div>}
+    {also.length > 0 && (
+      <section aria-labelledby="also-h">
+        <h2 id="also-h" class="section-label">{main.length ? 'Also covers ' + dest.name : 'Posts that cover ' + dest.name}</h2>
+        <div class="grid-3">{also.map((p) => <PostCard post={p} size="md" headingLevel={3} />)}</div>
+      </section>
+    )}
+    {all.length === 0 && <p>No posts here yet. Start with <a href="/blog/">all posts</a>.</p>}
+  </div>
+</Base>

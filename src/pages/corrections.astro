@@ -1,10 +1,10 @@
 ---
-import Article from '../layouts/Article.astro';
+import Article from '../layouts/Page.astro';
 import { site, publisher, disclosure } from '../site.config';
 ---
 <Article
   title="Corrections and removal"
-  description="How to request a correction to a guide page or a company listing on Bolivia Unpacked, or the removal of a company page."
+  description="How to tell us about a mistake in a Bolivia Unpacked post, or ask for a correction to operator details that come from the Tourground directory."
   path="/corrections/"
   crumbs={[{ name: 'Home', path: '/' }, { name: 'Corrections and removal', path: '/corrections/' }]}
   published={site.launchDate}
@@ -13,12 +13,11 @@ import { site, publisher, disclosure } from '../site.config';
   rail={false}
   kicker="Corrections"
 >
-  <h2>Company listings</h2>
-  <p>Company facts come from the Tourground directory, so they are corrected there, and the change reaches this site at the next build. If you are a company, or anyone who has spotted an error on a company page, use the main site's form:</p>
+  <h2>Posts</h2>
+  <p>If something in a post is wrong or out of date, email <a href={`mailto:${site.email}`}>{site.email}</a> with the page address, what is wrong and, if you can, a source. We check the source, correct the post and update its "Updated" date. Health, entry and safety facts also carry a "Last checked" date.</p>
+  <h2>Operator details</h2>
+  <p>Operator details in the "Plan this trip" box come from the Tourground directory, so they are corrected there and the change reaches this site at the next build. Companies can use the main site's form:</p>
   <p><a href={publisher.correctionUrl}><strong>{disclosure.correctionLinkText}</strong></a></p>
-  <p>Companies can also ask for their page to be removed through the same form. When a company is removed from the directory, its page here is unpublished in the next build.</p>
-  <h2>Guide and question pages</h2>
-  <p>If a guide or question page is wrong or out of date, email <a href={`mailto:${site.email}`}>{site.email}</a> with the page address, what is wrong and, if you can, a source. We check the source, correct the page and update its "last reviewed" date.</p>
   <h2>Corrections log</h2>
   <p>No corrections have been made since the site launched on {site.launchDate}.</p>
 </Article>

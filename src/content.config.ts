@@ -2,38 +2,33 @@ import { defineCollection } from 'astro:content';
 import { glob } from 'astro/loaders';
 import { z } from 'astro/zod';
 
-const source = z.object({ url: z.string().url(), label: z.string().min(1), accessed: z.union([z.string(), z.date()]).transform((v) => (typeof v === 'string' ? v : v.toISOString().slice(0, 10))).optional() });
+const isoDate = z.union([z.string(), z.date()]).transform((v) => (typeof v === 'string' ? v : v.toISOString().slice(0, 10)));
+const source = z.object({ url: z.string().url(), label: z.string().min(1), accessed: isoDate.optional() });
 
-const base = {
-  title: z.string().min(1),
-  description: z.string().min(20).max(200),
-  sources: z.array(source),
-  published: z.coerce.date(),
-  reviewed: z.coerce.date(),
-  status: z.enum(['draft', 'reviewed']),
-};
+const CATEGORIES = ['destinations', 'itineraries', 'altitude-health', 'adventure', 'food-culture', 'travel-tips'] as const;
+const DESTINATIONS = ['la-paz', 'uyuni', 'titicaca', 'sucre-potosi', 'amazon', 'yungas'] as const;
 
-const guide = defineCollection({
-  loader: glob({ pattern: '**/*.md', base: './src/content/guide' }),
+const posts = defineCollection({
+  loader: glob({ pattern: '**/*.md', base: './src/content/posts' }),
   schema: z.object({
-    ...base,
-    section: z.enum(['regions', 'planning']),
-    order: z.number().int(),
-    /** Optional representative elevation in metres, marked on the altitude rail. */
-    elevation_m: z.number().int().optional(),
-    elevation_label: z.string().optional(),
+    title: z.string().min(1).max(110),
+    description: z.string().min(80).max(220),
+    published: z.coerce.date(),
+    updated: z.coerce.date(),
+    author: z.string().default('desk'),
+    categories: z.array(z.enum(CATEGORIES)).min(1),
+    destinations: z.array(z.enum(DESTINATIONS)).default([]),
+    hero: z.string(),
+    heroAlt: z.string().optional(),
+    featured: z.boolean().default(false),
+    startHere: z.boolean().default(false),
+    operator: z.string().nullable().optional(),
+    planNote: z.string().optional(),
+    /** Date the health, entry or safety facts were last checked against the official sources. */
+    factsChecked: z.coerce.date().optional(),
+    draft: z.boolean().default(false),
+    sources: z.array(source).min(1),
   }),
 });
 
-const qa = defineCollection({
-  loader: glob({ pattern: '**/*.md', base: './src/content/qa' }),
-  schema: z.object({
-    ...base,
-    question: z.string().min(5),
-    /** The short answer, shown first and used in FAQPage JSON-LD. Plain text. */
-    short_answer: z.string().min(20),
-    order: z.number().int(),
-  }),
-});
-
-export const collections = { guide, qa };
+export const collections = { posts };

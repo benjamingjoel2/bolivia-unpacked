@@ -1,0 +1,35 @@
+---
+import Base from '../../layouts/Base.astro';
+import PostCard from '../../components/PostCard.astro';
+import { allPosts, postPath, type Post } from '../../lib/posts';
+import { categories, categoryPath, type Category } from '../../data/taxonomy';
+import { abs, webPageNode } from '../../lib/seo';
+
+export async function getStaticPaths() {
+  const posts = await allPosts();
+  return categories.filter((c) => c.slug !== 'destinations').map((c) => ({
+    params: { slug: c.slug },
+    props: { cat: c, posts: posts.filter((p) => p.data.categories.includes(c.slug as any)) },
+  }));
+}
+const { cat, posts } = Astro.props as { cat: Category; posts: Post[] };
+const path = categoryPath(cat.slug);
+const nodes = [
+  webPageNode({ type: 'CollectionPage', path, title: cat.name, description: cat.description }),
+  { '@type': 'ItemList', itemListElement: posts.map((p, i) => ({ '@type': 'ListItem', position: i + 1, url: abs(postPath(p)), name: p.data.title })) },
+];
+---
+<Base title={cat.name} description={cat.description} path={path} crumbs={[{ name: 'Home', path: '/' }, { name: cat.name, path }]} nodes={nodes}>
+  <div class="wrap">
+    <header class="page-head">
+      <p class="kicker">Category</p>
+      <h1>{cat.name}</h1>
+      <p class="dek">{cat.description}</p>
+    </header>
+    {posts.length ? (
+      <div class="grid-3">{posts.map((p, i) => <PostCard post={p} eager={i < 3} headingLevel={2} />)}</div>
+    ) : (
+      <p>No posts here yet. Start with <a href="/blog/">all posts</a>.</p>
+    )}
+  </div>
+</Base>

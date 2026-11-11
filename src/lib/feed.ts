@@ -8,7 +8,6 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { site } from '../site.config';
-import { nicheLists, type NicheList } from '../data/niches';
 
 export type Tier = 'verified' | 'black' | 'platinum' | 'founder';
 
@@ -111,16 +110,10 @@ export function rankedCompanies(): Company[] {
     .sort((a, b) => (rankOf(a)! - rankOf(b)!));
 }
 
-export function companiesForList(list: NicheList): Company[] {
-  return rankedCompanies().filter((c) => {
-    if (list.localOnly && c.country_base !== site.countryCode) return false;
-    if (list.match && !c.niches.includes(list.match)) return false;
-    return true;
-  });
-}
-
-export function listsForCompany(c: Company): NicheList[] {
-  return nicheLists.filter((l) => companiesForList(l).some((x) => x.id === c.id));
+/** A published operator by id, or null if the feed no longer publishes it (verified-only gate). */
+export function getOperator(id: string | undefined | null): Company | null {
+  if (!id) return null;
+  return publishedCompanies().find((c) => c.id === id) ?? null;
 }
 
 /** Platinum companies may link to their own site (paid link, rel sponsored nofollow). Everyone else: Tourground profile only. */

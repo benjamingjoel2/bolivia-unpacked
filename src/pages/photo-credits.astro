@@ -1,0 +1,31 @@
+---
+import Article from '../layouts/Page.astro';
+import { allPhotos } from '../lib/photos';
+import { site } from '../site.config';
+const photos = allPhotos();
+---
+<Article
+  title="Photo credits"
+  description="Every photograph on Bolivia Unpacked, with its author, licence and source on Wikimedia Commons."
+  path="/photo-credits/"
+  published={site.launchDate}
+  reviewed="2026-11-11"
+  kicker="About"
+>
+  <p>We use only freely licensed photographs from Wikimedia Commons, shown with their author and licence. We do not use AI-generated images or photographs of identifiable people. Photos may be cropped to fit the layout. If you are a photographer and something here is wrong, email <a href={`mailto:${site.email}`}>{site.email}</a>.</p>
+  <div class="table-wrap">
+    <table>
+      <caption>{photos.length} photographs</caption>
+      <thead><tr><th scope="col">Photograph</th><th scope="col">Author</th><th scope="col">Licence</th></tr></thead>
+      <tbody>
+        {photos.map((p) => (
+          <tr>
+            <td><a href={p.sourceUrl}>{p.title}</a>{p.place && <span class="muted"> ({p.place})</span>}</td>
+            <td>{p.author}</td>
+            <td><a href={p.licenceUrl}>{p.licence}</a></td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+</Article>

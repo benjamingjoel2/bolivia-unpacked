@@ -1,0 +1,29 @@
+---
+/** A photograph with its credit line. Every photo on the site goes through this component. */
+import { Picture } from 'astro:assets';
+import { photo } from '../lib/photos';
+interface Props { key: string; alt?: string; eager?: boolean; sizes?: string; widths?: number[]; class?: string; caption?: boolean; ratio?: string }
+const { key, alt, eager = false, sizes = '100vw', widths = [480, 800, 1200, 1600], class: cls, caption = true, ratio } = Astro.props;
+const p = photo(key);
+const w = widths.filter((x) => x <= p.image.width);
+---
+<figure class:list={['photo', cls]} style={ratio ? `--ratio:${ratio}` : undefined}>
+  <Picture
+    src={p.image}
+    alt={alt ?? p.alt}
+    formats={['avif', 'webp']}
+    fallbackFormat="jpg"
+    widths={w.length ? w : [p.image.width]}
+    sizes={sizes}
+    loading={eager ? 'eager' : 'lazy'}
+    decoding={eager ? 'sync' : 'async'}
+    fetchpriority={eager ? 'high' : 'auto'}
+    quality={72}
+  />
+  {caption && (
+    <figcaption>
+      {p.place && <span>{p.place}. </span>}
+      Photo: <a href={p.sourceUrl}>{p.author}</a>, <a href={p.licenceUrl}>{p.licence}</a>
+    </figcaption>
+  )}
+</figure>

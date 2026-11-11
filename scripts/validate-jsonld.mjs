@@ -19,6 +19,8 @@ const forbiddenNames = feed.companies
   .map((c) => c.name);
 
 const REQUIRED = {
+  BlogPosting: ['headline', 'datePublished', 'dateModified', 'author', 'publisher', 'image'],
+  Blog: ['name', 'url'],
   WebSite: ['name', 'url'],
   Article: ['headline', 'datePublished', 'dateModified', 'author', 'publisher'],
   BreadcrumbList: ['itemListElement'],
@@ -54,9 +56,9 @@ function checkNode(file, node) {
       if (q['@type'] !== 'Question' || !q.name || q.acceptedAnswer?.['@type'] !== 'Answer' || !q.acceptedAnswer?.text) fail(file, 'FAQPage Question/Answer malformed');
     }
   }
-  if (t.includes('Article')) {
+  if (t.includes('Article') || t.includes('BlogPosting')) {
     for (const k of ['datePublished', 'dateModified']) if (!/^\d{4}-\d{2}-\d{2}/.test(node[k])) fail(file, `Article ${k} not ISO date`);
-    if (node.headline.length > 110) fail(file, 'Article headline > 110 chars');
+    if (node.headline.length > 110) fail(file, 'headline > 110 chars');
   }
 }
 
@@ -75,15 +77,25 @@ for (const file of walk(dist).filter((f) => f.endsWith('.html'))) {
     if (m[0] !== ALLOWED_EMAIL && !m[0].endsWith('.woff2') && !m[0].includes('@fontsource')) fail(file, `unexpected email ${m[0]}`);
   }
   for (const n of forbiddenNames) if (html.includes(n)) fail(file, `excluded company "${n}" appears`);
-  if (rel.startsWith('companies/') && !html.includes('Request a correction or removal')) fail(file, 'company page missing correction link');
-  if (rel.startsWith('companies/altiplano-journeys') && !html.includes('Founder-owned (Tourground Geotrax)')) fail(file, 'founder-owned label missing');
+  if (html.includes('Altiplano Journeys') && !html.includes('Founder-owned (Tourground Geotrax)')) fail(file, 'Altiplano Journeys mentioned without founder-owned label');
+  if (/class="ad-slot"/.test(html) && !html.includes('Advertisement feature')) fail(file, 'paid placement without "Advertisement feature" label');
+  const isPost = rel.startsWith('blog/') && rel !== 'blog/index.html';
+  if (isPost && !html.includes('id="plan-h"')) fail(file, 'post missing "Plan this trip" box');
+  if (isPost && !html.includes('id="sources-h"')) fail(file, 'post missing sources');
+  if (isPost && !/<img[^>]+fetchpriority="high"/.test(html)) fail(file, 'post missing hero photo');
+  for (const img of html.matchAll(/<img\b[^>]*>/g)) if (!/\balt(=|\s|\/?>)/.test(img[0])) fail(file, 'img without alt');
+  const seen = new Set();
+  let ldCount = 0;
   for (const m of html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)) {
-    blocks++;
+    blocks++; ldCount++;
     let data;
     try { data = JSON.parse(m[1]); } catch (e) { fail(file, 'JSON-LD does not parse: ' + e.message); continue; }
     if (data['@context'] !== 'https://schema.org') fail(file, 'JSON-LD @context is not https://schema.org');
-    checkNode(file, data);
+    for (const node of data['@graph'] ?? [data]) { checkNode(file, node); [].concat(node['@type']).forEach((t) => seen.add(t)); }
   }
+  if (!ldCount) fail(file, 'no JSON-LD');
+  for (const t of ['Organization', 'WebSite', 'BreadcrumbList']) if (!seen.has(t)) fail(file, `JSON-LD missing ${t}`);
+  if (isPost && !seen.has('BlogPosting')) fail(file, 'JSON-LD missing BlogPosting');
 }
 
 console.log(`\nJSON-LD / page checks: ${pages} pages, ${blocks} JSON-LD blocks`);
