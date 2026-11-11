@@ -29,7 +29,7 @@ interface Props {
 const { title, description, path, crumbs = [{ name: 'Home', path: '/' }], nodes, pageType = 'WebPage', noindex = false, ogType = 'website', ogImage, showCrumbs = true } = Astro.props;
 const fullTitle = path === '/' ? `${site.name}: ${site.tagline}` : `${title} | ${site.name}`;
 const canonical = abs(path);
-const img = ogImage ?? { url: abs('/og-default.png'), width: 1200, height: 630, alt: `${site.name}: ${site.tagline}` };
+const img = ogImage ?? { url: abs('/og-default.jpg'), width: 1200, height: 630, alt: "The white salt crust of the Salar de Uyuni under a blue sky" };
 const ld = graph([...(nodes ?? [webPageNode({ type: pageType, path, title, description })]), breadcrumbNode(crumbs)]);
 ---
 <!doctype html>

@@ -6,7 +6,7 @@ updated: 2026-11-11
 author: desk
 categories: [travel-tips, destinations]
 destinations: [la-paz, uyuni, titicaca, sucre-potosi, amazon, yungas]
-hero: la-paz-illimani
+hero: laguna-colorada
 featured: false
 startHere: true
 operator: altiplano-journeys

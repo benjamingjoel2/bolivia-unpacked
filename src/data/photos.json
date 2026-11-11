@@ -1,0 +1,202 @@
+{
+  "uyuni-salt-crust": {
+    "file": "uyuni-salt-crust.jpg",
+    "title": "20170809 Bolivia 1521 Uyuni sRGB (37926739616).jpg",
+    "author": "Dan Lundberg",
+    "licence": "CC BY-SA 2.0",
+    "licenceUrl": "https://creativecommons.org/licenses/by-sa/2.0/",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:20170809_Bolivia_1521_Uyuni_sRGB_(37926739616).jpg",
+    "alt": "Dry white salt crust of Salar de Uyuni cracked into hexagonal ridges, a distant volcano under blue sky",
+    "place": "Salar de Uyuni"
+  },
+  "uyuni-mirror": {
+    "file": "uyuni-mirror.jpg",
+    "title": "Salar de Uyuni, Bolivia, 2016-02-04, DD 10-12 HDR.JPG",
+    "author": "Diego Delso",
+    "licence": "CC BY-SA 4.0",
+    "licenceUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Salar_de_Uyuni,_Bolivia,_2016-02-04,_DD_10-12_HDR.JPG",
+    "alt": "Sunrise-lit mountains mirrored in a thin sheet of water over the Salar de Uyuni salt flat",
+    "place": "Salar de Uyuni"
+  },
+  "incahuasi": {
+    "file": "incahuasi.jpg",
+    "title": "Isla Incahuasi, Salar de Uyuni, Bolivia, 2016-02-04, DD 43.jpg",
+    "author": "Diego Delso",
+    "licence": "CC BY-SA 4.0",
+    "licenceUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Isla_Incahuasi,_Salar_de_Uyuni,_Bolivia,_2016-02-04,_DD_43.jpg",
+    "alt": "Tall columnar cacti covering rocky Isla Incahuasi, with the white salt flat and distant mountains behind",
+    "place": "Isla Incahuasi, Salar de Uyuni"
+  },
+  "laguna-colorada": {
+    "file": "laguna-colorada.jpg",
+    "title": "Laguna Colorada, Bolivia, 2016-02-02, DD 71-73 PAN.JPG",
+    "author": "Diego Delso",
+    "licence": "CC BY-SA 4.0",
+    "licenceUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Laguna_Colorada,_Bolivia,_2016-02-02,_DD_71-73_PAN.JPG",
+    "alt": "Panorama of the reddish waters and white mineral shores of Laguna Colorada beneath mountains and clouds",
+    "place": "Laguna Colorada, Eduardo Avaroa Reserve"
+  },
+  "sol-de-manana": {
+    "file": "sol-de-manana.jpg",
+    "title": "Géiseres Sol de Mañana, Bolivia, 2016-02-02, DD 56.JPG",
+    "author": "Diego Delso",
+    "licence": "CC BY-SA 4.0",
+    "licenceUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:G%C3%A9iseres_Sol_de_Ma%C3%B1ana,_Bolivia,_2016-02-02,_DD_56.JPG",
+    "alt": "Steaming mud pools and mineral-stained volcanic ground at the Sol de Mañana geothermal field under blue sky",
+    "place": "Sol de Mañana, Sur Lípez"
+  },
+  "arbol-de-piedra": {
+    "file": "arbol-de-piedra.jpg",
+    "title": "Árbol de Piedra, Desierto de Siloli, Bolivia, 2016-02-03, DD 01.JPG",
+    "author": "Diego Delso",
+    "licence": "CC BY-SA 4.0",
+    "licenceUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:%C3%81rbol_de_Piedra,_Desierto_de_Siloli,_Bolivia,_2016-02-03,_DD_01.JPG",
+    "alt": "The wind-eroded Árbol de Piedra rock formation standing in the sandy Siloli Desert under deep blue sky",
+    "place": "Árbol de Piedra, Siloli Desert"
+  },
+  "la-paz-illimani": {
+    "file": "la-paz-illimani.jpg",
+    "title": "La Paz a Illimani - panoramio.jpg",
+    "author": "Pavel Špindler",
+    "licence": "CC BY 3.0",
+    "licenceUrl": "https://creativecommons.org/licenses/by/3.0/",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:La_Paz_a_Illimani_-_panoramio.jpg",
+    "alt": "Brick buildings and high-rises of La Paz spreading across the valley below snow-capped Illimani under dark clouds",
+    "place": "La Paz"
+  },
+  "la-paz-teleferico": {
+    "file": "la-paz-teleferico.jpg",
+    "title": "Teleférico de La Paz, Bolivia.jpg",
+    "author": "Jgbmac",
+    "licence": "CC BY-SA 4.0",
+    "licenceUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Telef%C3%A9rico_de_La_Paz,_Bolivia.jpg",
+    "alt": "Mi Teleférico gondola cabins on cables above brick houses of La Paz on a clear day",
+    "place": "La Paz"
+  },
+  "isla-del-sol": {
+    "file": "isla-del-sol.jpg",
+    "title": "Lago Titicaca 08 - Isla del Sol.jpg",
+    "author": "Thomas Fuhrmann",
+    "licence": "CC BY-SA 4.0",
+    "licenceUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Lago_Titicaca_08_-_Isla_del_Sol.jpg",
+    "alt": "Rocky hillside with a stone cairn on Isla del Sol overlooking a Lake Titicaca bay and headland",
+    "place": "Isla del Sol, Lake Titicaca"
+  },
+  "copacabana": {
+    "file": "copacabana.jpg",
+    "title": "Bolivia - View of Copacabana and Lake Titicaca.jpg",
+    "author": "P. Hughes",
+    "licence": "CC BY 4.0",
+    "licenceUrl": "https://creativecommons.org/licenses/by/4.0/",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Bolivia_-_View_of_Copacabana_and_Lake_Titicaca.jpg",
+    "alt": "Elevated view of Copacabana town and its hill on the deep blue shore of Lake Titicaca",
+    "place": "Copacabana, Lake Titicaca"
+  },
+  "sucre": {
+    "file": "sucre.jpg",
+    "title": "Bolivia - View of Sucre.jpg",
+    "author": "P. Hughes",
+    "licence": "CC BY 4.0",
+    "licenceUrl": "https://creativecommons.org/licenses/by/4.0/",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Bolivia_-_View_of_Sucre.jpg",
+    "alt": "View over the white buildings and red-tiled roofs of Sucre framed by trees, with hills beyond",
+    "place": "Sucre"
+  },
+  "potosi": {
+    "file": "potosi.jpg",
+    "title": "Cerro Rico, à Potosi.jpg",
+    "author": "Consulnico",
+    "licence": "CC BY-SA 4.0",
+    "licenceUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Cerro_Rico,_%C3%A0_Potosi.jpg",
+    "alt": "Snow-dusted cone of Cerro Rico rising above the houses and rooftops of Potosí under an overcast sky",
+    "place": "Potosí"
+  },
+  "rurrenabaque": {
+    "file": "rurrenabaque.jpg",
+    "title": "Rio Beni, Rurrenabaque.jpg",
+    "author": "Gabrarq77",
+    "licence": "CC BY-SA 4.0",
+    "licenceUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Rio_Beni,_Rurrenabaque.jpg",
+    "alt": "Brown Beni River flowing between forested hills near Rurrenabaque, gateway to the Madidi protected area",
+    "place": "Rurrenabaque, Beni River"
+  },
+  "madidi": {
+    "file": "madidi.jpg",
+    "title": "Bosque tropical Madidi.jpg",
+    "author": "DanielGuzmanDuchen",
+    "licence": "CC BY-SA 4.0",
+    "licenceUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Bosque_tropical_Madidi.jpg",
+    "alt": "Dense green rainforest canopy of Madidi National Park stretching to the horizon in late afternoon light",
+    "place": "Madidi National Park"
+  },
+  "yungas": {
+    "file": "yungas.jpg",
+    "title": "Sud Yungas, Municipio de Yanacahi-denoise.jpg",
+    "author": "China Supay md",
+    "licence": "CC BY 4.0",
+    "licenceUrl": "https://creativecommons.org/licenses/by/4.0/",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Sud_Yungas,_Municipio_de_Yanacahi-denoise.jpg",
+    "alt": "Steep green forested valley in the Sud Yungas near Yanacachi under white clouds and blue sky",
+    "place": "Sud Yungas"
+  },
+  "tiwanaku": {
+    "file": "tiwanaku.jpg",
+    "title": "Bolivia - Gate of the Sun detail - Tiwanaku or Tiahuanaco 01.jpg",
+    "author": "Dennis G. Jarvis",
+    "licence": "CC BY-SA 2.0",
+    "licenceUrl": "https://creativecommons.org/licenses/by-sa/2.0/",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Bolivia_-_Gate_of_the_Sun_detail_-_Tiwanaku_or_Tiahuanaco_01.jpg",
+    "alt": "Close-up of the carved central figure and relief panels on the stone lintel of Tiwanaku’s Gate of the Sun",
+    "place": "Tiwanaku"
+  },
+  "cusco-or-puno": {
+    "file": "cusco-or-puno.jpg",
+    "title": "Vista de Cusco, Perú, 2015-07-31, DD 47.jpg",
+    "author": "Diego Delso",
+    "licence": "CC BY-SA 4.0",
+    "licenceUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Vista_de_Cusco,_Per%C3%BA,_2015-07-31,_DD_47.jpg",
+    "alt": "Elevated view of Cusco’s Plaza de Armas, its cathedral and church, and surrounding red-tiled rooftops",
+    "place": "Cusco, Peru"
+  },
+  "train-cemetery": {
+    "file": "train-cemetery.jpg",
+    "title": "Abanonded steam engine in Uyuni train cemetery.jpg",
+    "author": "Jimmy Harris",
+    "licence": "CC BY 2.0",
+    "licenceUrl": "https://creativecommons.org/licenses/by/2.0/",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Abanonded_steam_engine_in_Uyuni_train_cemetery.jpg",
+    "alt": "Row of rusting abandoned steam locomotives in the desert at the Uyuni train cemetery under grey sky",
+    "place": "Uyuni train cemetery"
+  },
+  "salar-jeep": {
+    "file": "salar-jeep.jpg",
+    "title": "Reflection on the Salar de Uyuni, bolivia.jpg",
+    "author": "Christopher Crouzet",
+    "licence": "CC BY-SA 4.0",
+    "licenceUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Reflection_on_the_Salar_de_Uyuni,_bolivia.jpg",
+    "alt": "White Toyota Land Cruiser with roof rack reflected in water on the Salar de Uyuni at sunrise",
+    "place": "Salar de Uyuni"
+  },
+  "saltenas": {
+    "file": "saltenas.jpg",
+    "title": "Salteñas de Bolivia.jpg",
+    "author": "EEJCC",
+    "licence": "CC BY-SA 4.0",
+    "licenceUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Salte%C3%B1as_de_Bolivia.jpg",
+    "alt": "Two golden baked salteñas on a white plate with a floral border, on a green placemat",
+    "place": "Bolivia"
+  }
+}

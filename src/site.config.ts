@@ -83,7 +83,7 @@ export const disclosure = {
     'Operators are listed through the Tourground directory, which publishes only verified companies. Tourground earns money when travellers book through its platform.',
   founderOwnedLabel: 'Founder-owned (Tourground Geotrax)',
   founderOwnedExplainer:
-    'This brand is owned by the founders of Tourground, the publisher of this site. It is ranked by the same rules as every other company and gets no preferential position.',
+    'This brand is owned by the founders of Tourground, the publisher of this site. We recommend it where it fits the trip and always say so; you are free to compare it with any other operator in the directory.',
   paidLabel: 'Advertisement feature',
   paidExplainer:
     'Advertisement features are paid for. They are shown separately from the rankings, never change a company’s rank and are always labelled.',
