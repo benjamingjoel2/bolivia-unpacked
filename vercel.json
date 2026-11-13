@@ -183,12 +183,22 @@
       "permanent": true
     },
     {
-      "source": "/operators/:path*",
+      "source": "/operators",
       "destination": "/about/",
       "permanent": true
     },
     {
-      "source": "/companies/:path*",
+      "source": "/operators/(.*)",
+      "destination": "/about/",
+      "permanent": true
+    },
+    {
+      "source": "/companies",
+      "destination": "/about/",
+      "permanent": true
+    },
+    {
+      "source": "/companies/(.*)",
       "destination": "/about/",
       "permanent": true
     }
